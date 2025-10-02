@@ -1,16 +1,241 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <meta charset="UTF-8">
+  <title>ByteBack — Pakistan's Youth Legal Aid Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ByteBack is Pakistan’s first gender-sensitive, youth-powered legal aid platform fighting online abuse through tools, law, and empathy.">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900;700&family=Open+Sans:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
-  Hello world
+  <!-- HEADER: Used on all pages -->
+  <header class="byteback-header">
+    <img src="images/logo 1.png" alt="ByteBack Logo" class="header-logo">
+    <div class="header-title-block">
+      <div class="header-title">
+        <span class="title-gradient">Byte</span><span class="title-mint">Back</span>
+      </div>
+      <div class="header-tagline">
+        Pakistan’s first gender-sensitive, youth-led legal aid platform
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#hub">Hub</a></li>
+        <li><a href="#legal">Legal Bot</a></li>
+        <li><a href="#rollout">Rollout</a></li>
+        <li><a href="#stories">Stories</a></li>
+        <li><a href="#insights">Insights</a></li>
+        <li><a href="#join">Join</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#faqs">FAQs</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO SLIDESHOW SECTION -->
+    <section id="home" class="hero-slideshow-section">
+      <div class="hero-slideshow">
+        <div class="hero-slide active">
+          <div class="slide-bg" style="background-image: url('images/keyboard.jpg');"></div>
+          <div class="slide-content">
+            <h1 class="slide-title glide-bottom">EMPOWERING YOUR LEGAL JOURNEY FIND THE RIGHT LAWYER NEAR YOU</h1>
+            <p class="slide-desc glide-bottom">Your digital rights matter. ByteBack helps you fight back.</p>
+            <p class="slide-desc glide-bottom">We connect you to legal experts, resources, and real stories. Our mission is to empower you with knowledge and support for every digital challenge.</p>
+            <a href="#legal" class="slide-cta glide-bottom">Speak to a lawyer</a>
+          </div>
+        </div>
+        <div class="hero-slide">
+          <div class="slide-bg" style="background-image: url('images/hacker.jpg');"></div>
+          <div class="slide-content">
+            <h1 class="slide-title glide-bottom">JUSTICE FOR ALL SUPPORT FOR THE VULNERABLE</h1>
+            <p class="slide-desc glide-bottom">Our Legal Bot is here to help you 24/7.</p>
+            <p class="slide-desc glide-bottom">ByteBack ensures every voice is heard and every concern is addressed, no matter your background.</p>
+            <a href="#hub" class="slide-cta glide-bottom">Visit the Defense Hub</a>
+          </div>
+        </div>
+        <div class="hero-slide">
+          <div class="slide-bg" style="background-image: url('images/slut.jpg');"></div>
+          <div class="slide-content">
+            <h1 class="slide-title glide-bottom">CONNECT WITH EXPERTS GET FREE LEGAL HELP</h1>
+            <p class="slide-desc glide-bottom">We support you through empathy, not judgment.</p>
+            <p class="slide-desc glide-bottom">Whether it's cyber harassment or digital fraud, ByteBack is by your side.</p>
+            <a href="#legal" class="slide-cta glide-bottom">Use the Legal Aid Bot</a>
+          </div>
+        </div>
+        <div class="hero-slide">
+          <div class="slide-bg" style="background-image: url('images/harassment.jpg');"></div>
+          <div class="slide-content">
+            <h1 class="slide-title glide-bottom">TAKE ACTION TODAY DEFEND YOUR RIGHTS</h1>
+            <p class="slide-desc glide-bottom">You are not alone. Get the support you deserve.</p>
+            <p class="slide-desc glide-bottom">Our community stands strong together, fighting for justice and digital safety.</p>
+            <a href="#join" class="slide-cta glide-bottom">Get Help</a>
+          </div>
+        </div>
+        <button class="slide-arrow prev">&#10094;</button>
+        <button class="slide-arrow next">&#10095;</button>
+      </div>
+    </section>
+    <!-- END HERO SLIDESHOW SECTION -->
+
+    <!-- Digital Defense Hub -->
+    <section id="hub">
+      <h1 class="main-heading glide-bottom">Digital Defense Hub</h1>
+      <div class="hero-intro-wide glide-bottom">Explore legal resources, stories, and connect with experts dedicated to justice for all.</div>
+      <div class="tool-card-grid four">
+        <a href="#" class="tool-card-link"><h3><span class="icon">🕵️</span>Phishing Detector</h3><p>Scan screenshots to detect scam signs.</p></a>
+        <a href="#" class="tool-card-link"><h3><span class="icon">🧠</span>Scam Quiz</h3><p>Test your instincts. Learn red flags.</p></a>
+        <a href="#" class="tool-card-link"><h3><span class="icon">🔐</span>Password Tester</h3><p>Check how crackable your passwords are.</p></a>
+        <a href="#" class="tool-card-link"><h3><span class="icon">📄</span>Reporting Templates</h3><p>Auto-fill FIRs and social platform complaints.</p></a>
+      </div>
+      <blockquote class="quote-banner glide-bottom">Every click could cost you. Train smart.</blockquote>
+    </section>
+
+    <section id="legal">
+      <h1 class="main-heading glide-bottom">Legal Aid Bot</h1>
+      <div class="hero-intro-wide glide-bottom">Ask questions and get instant legal guidance from our AI-powered bot.</div>
+      <div style="display:flex; flex-wrap:wrap; gap:32px; justify-content:center;">
+        <div style="flex:1;min-width:280px;max-width:400px;background:#161616;border-radius:12px;padding:20px;box-shadow:0 0 12px #00ffe033;text-align:center;">[Chatbot Placeholder]</div>
+        <div style="flex:1;min-width:280px;max-width:400px;">
+          <div class="info-card"><h4 class="glide-bottom">⚖️ Know Your Rights</h4><p>Understand PECA and cyber laws in Pakistan.</p></div>
+          <div class="info-card"><h4 class="glide-bottom">📞 Emergency Helplines</h4><p>Contact FIA, DRF, cyber police quickly.</p></div>
+          <div class="info-card"><h4 class="glide-bottom">🚪 Panic Exit</h4><p>Instantly close this page with one key.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rollout">
+      <h1 class="main-heading glide-bottom">National Rollout</h1>
+      <div class="hero-intro-wide glide-bottom">ByteBack is scaling to schools and colleges nationwide.</div>
+      <div class="impact-stats">
+        <div class="stat-block"><h2 class="glide-bottom">22,000+</h2><p>Youth reached</p></div>
+        <div class="stat-block"><h2 class="glide-bottom">15+</h2><p>Schools onboarded</p></div>
+        <div class="stat-block"><h2 class="glide-bottom">98%</h2><p>Felt more confident online</p></div>
+      </div>
+      <a href="#" class="hero-btn-neon glide-bottom">Download School Toolkit PDF</a>
+      <div class="testimonial glide-bottom">“ByteBack helped my class understand real-world online dangers. It’s not boring — it’s empowering.”</div>
+    </section>
+
+    <section id="stories">
+      <h1 class="main-heading glide-bottom">ByteBack Stories</h1>
+      <div class="hero-intro-wide glide-bottom">Through photos and captions, we document silence, shame, and survival.</div>
+      <div class="story-gallery glide-bottom">[Gallery of emotional stories with filters like #resistance, #grief, #recovery]</div>
+    </section>
+
+    <section id="insights">
+      <h1 class="main-heading glide-bottom">Insights & Evidence</h1>
+      <div class="hero-intro-wide glide-bottom">Research, reporting, and infographics to help you understand digital abuse.</div>
+      <div class="tool-card-grid four">
+        <div class="tool-card">
+          <h3>2025 Research Report</h3>
+          <p>What we learned from 100+ teen interviews.</p>
+          <a href="#" class="download-btn">Download PDF</a>
+        </div>
+        <div class="tool-card">
+          <h3>PECA Explained</h3>
+          <p>Understand your legal rights in plain Urdu/English.</p>
+        </div>
+        <div class="tool-card">
+          <h3>Infographic Series</h3>
+          <p>Visual breakdowns of digital abuse trends.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="join">
+      <h1 class="main-heading glide-bottom">Get Involved</h1>
+      <div class="hero-intro-wide glide-bottom">Become part of our community and help us make a difference in the fight for justice.</div>
+      <div class="tool-card-grid triangle">
+        <a href="#" class="tool-card-link"><h3>🏫 Start a ByteBack Club</h3><p>Bring ByteBack to your school or uni.</p></a>
+        <a href="#" class="tool-card-link"><h3>🧠 Become an Ambassador</h3><p>Train to represent ByteBack in your city.</p></a>
+        <a href="#" class="tool-card-link"><h3>🤝 Collaborate or Donate</h3><p>Partner with us to scale impact.</p></a>
+      </div>
+      <a href="#contact" class="hero-btn-neon glide-bottom">Join the Movement</a>
+    </section>
+
+    <section id="contact">
+      <h1 class="main-heading glide-bottom">Contact Us</h1>
+      <div class="hero-intro-wide glide-bottom">Reach out to our team for support, partnership, or press inquiries.</div>
+      <div class="contact-wrap">
+        <form class="contact-form">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your Name">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Your Email">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Your Message"></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+        <div class="contact-info">
+          <div><strong>Email:</strong> <a href="mailto:info@byteback.pk">info@byteback.pk</a></div>
+          <div><strong>Helpline:</strong> <a href="tel:+923001234567">+92 300 1234567</a></div>
+          <div><strong>Social:</strong>
+            <a href="https://facebook.com/byteback.pk" target="_blank">Facebook</a> |
+            <a href="https://instagram.com/byteback.pk" target="_blank">Instagram</a> |
+            <a href="https://linkedin.com/company/byteback" target="_blank">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faqs" class="faqs-section">
+      <h1 class="main-heading glide-bottom">FAQs</h1>
+      <div class="hero-intro-wide glide-bottom">Find answers to the most common questions about ByteBack and digital rights.</div>
+      <div class="faqs-list">
+        <div class="faq-item">
+          <button class="faq-question">What is ByteBack?</button>
+          <div class="faq-answer">ByteBack is Pakistan’s first youth-powered, gender-sensitive legal aid platform for digital rights and online safety.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">How do I get legal help?</button>
+          <div class="faq-answer">Use our Legal Aid Bot or connect with a verified expert through the Digital Defense Hub.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Is ByteBack free?</button>
+          <div class="faq-answer">Yes, all our tools and resources are free for youth and vulnerable communities.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER: Used on all pages -->
+  <footer class="byteback-footer">
+    <div class="footer-main">
+      <div class="footer-col left">
+        <img src="images/logo 1.png" alt="ByteBack Logo" class="footer-logo">
+        <p class="footer-about">
+          ByteBack is Pakistan’s first gender-sensitive, youth-powered legal aid platform. We empower the next generation to reclaim digital safety, with tech, law, and empathy.
+        </p>
+        <div class="footer-socials">
+          <a href="https://facebook.com/byteback.pk" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://linkedin.com/company/byteback" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://instagram.com/byteback.pk" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col right">
+        <div class="footer-links-title">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#hub">Hub</a></li>
+          <li><a href="#legal">Legal Bot</a></li>
+          <li><a href="#join">Join</a></li>
+          <li><a href="#faqs">FAQs</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom-marquee">
+      <marquee behavior="scroll" direction="left" scrollamount="4">
+        Copyright © 2025 ByteBack — Pakistan’s First Gender-Sensitive, Youth Legal Aid Platform
+      </marquee>
+    </div> 
+  </footer>
+
   <script src="script.js"></script>
 </body>
-
 </html>
