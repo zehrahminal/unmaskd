@@ -1,13 +1,9 @@
-// script.js — full site script (clean, defensive, with debug logging)
-// Save this as script.js and make sure <script src="script.js"></script> is included
-// just before the closing </body> tag in your index.html.
-
+// script.js — robust site script with section visibility fix and debug logs
 (function () {
   'use strict';
 
-  // global error handler to surface issues quickly
+  // show global errors in console
   window.addEventListener('error', function (ev) {
-    // keep visible in console and as an alert during debug (remove alert later)
     console.error('Uncaught error:', ev.message, ev.error);
   });
 
@@ -16,20 +12,23 @@
   document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM ready');
 
-    /* -------------------------
-       HELPER: safeRun - catches errors so one bug doesn't stop everything
-       ------------------------- */
-    function safeRun(fnName, fn) {
+    // Ensure sections are visible (fix for CSS that hides sections by default)
+    try {
+      document.querySelectorAll('section').forEach(s => s.classList.add('visible'));
+      console.log('Added .visible to sections');
+    } catch (err) {
+      console.error('Error adding .visible to sections', err);
+    }
+
+    // Helper to run blocks safely
+    function safeRun(name, fn) {
       try {
         fn();
       } catch (err) {
-        console.error(`Error in ${fnName}:`, err);
+        console.error(`Error in ${name}:`, err);
       }
     }
 
-    /* -------------------------
-       HERO SLIDESHOW
-       ------------------------- */
     safeRun('initSlideshow', function initSlideshow() {
       const slides = Array.from(document.querySelectorAll('.hero-slide'));
       const prevBtn = document.querySelector('.slide-arrow.prev');
@@ -74,19 +73,11 @@
       }
     });
 
-
-    /* -------------------------
-       DONATION MODAL
-       ------------------------- */
     safeRun('initDonationModal', function initDonationModal() {
       const donateBtn = document.getElementById('donateBtn');
       const modal = document.getElementById('donateModal');
-      if (!donateBtn) {
-        console.log('donateBtn not found, skipping donation modal init.');
-        return;
-      }
-      if (!modal) {
-        console.log('donateModal not found, skipping donation modal init.');
+      if (!donateBtn || !modal) {
+        console.log('Donation modal or button not found (skipping).');
         return;
       }
 
@@ -95,41 +86,12 @@
       let previouslyFocused = null;
       let keyHandler = null;
 
-      function openModal() {
-        previouslyFocused = document.activeElement;
-        modal.classList.add('show');
-        modal.setAttribute('aria-hidden', 'false');
-        document.documentElement.style.overflow = 'hidden'; // lock scroll
-        // focus first focusable element or modal content
-        const focusable = getFocusable(modal);
-        if (focusable.length) focusable[0].focus();
-        else if (modalContent) modalContent.focus();
-        trapFocus();
+      function getFocusable(context) {
+        const selector = 'a[href], area[href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
+        return Array.from((context || document).querySelectorAll(selector)).filter(el => {
+          return el.offsetParent !== null && window.getComputedStyle(el).visibility !== 'hidden';
+        });
       }
-
-      function closeModal() {
-        modal.classList.remove('show');
-        modal.setAttribute('aria-hidden', 'true');
-        document.documentElement.style.overflow = '';
-        removeTrap();
-        if (previouslyFocused && previouslyFocused.focus) previouslyFocused.focus();
-      }
-
-      donateBtn.addEventListener('click', (e) => { e.preventDefault(); openModal(); });
-
-      closeTriggers.forEach(btn => {
-        btn.addEventListener('click', (e) => { e.preventDefault(); closeModal(); });
-      });
-
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal || e.target.classList.contains('modal-overlay')) {
-          closeModal();
-        }
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
-      });
 
       function trapFocus() {
         const focusable = getFocusable(modal);
@@ -159,45 +121,50 @@
         keyHandler = null;
       }
 
-      function getFocusable(context) {
-        const selector = 'a[href], area[href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
-        return Array.from((context || document).querySelectorAll(selector)).filter(el => {
-          // ensure visible
-          return el.offsetParent !== null && window.getComputedStyle(el).visibility !== 'hidden';
-        });
+      function openModal() {
+        previouslyFocused = document.activeElement;
+        modal.classList.add('show');
+        modal.setAttribute('aria-hidden', 'false');
+        document.documentElement.style.overflow = 'hidden';
+        const focusable = getFocusable(modal);
+        if (focusable.length) focusable[0].focus();
+        else if (modalContent) modalContent.focus();
+        trapFocus();
       }
+
+      function closeModal() {
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden', 'true');
+        document.documentElement.style.overflow = '';
+        removeTrap();
+        if (previouslyFocused && previouslyFocused.focus) previouslyFocused.focus();
+      }
+
+      donateBtn.addEventListener('click', (e) => { e.preventDefault(); openModal(); });
+      closeTriggers.forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); closeModal(); }));
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal || e.target.classList.contains('modal-overlay')) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+      });
     });
 
-
-    /* -------------------------
-       PANIC EXIT BUTTON
-       ------------------------- */
     safeRun('initPanicExit', function initPanicExit() {
       const btn = document.getElementById('panicExitBtn');
       if (!btn) {
-        console.log('panicExitBtn not found, skipping panic exit init.');
+        console.log('panicExitBtn not found (skipping).');
         return;
       }
-
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        // hide immediately for privacy
-        try {
-          document.documentElement.style.transition = 'none';
-          document.body.style.visibility = 'hidden';
-          if (document.activeElement) document.activeElement.blur();
-        } catch (err) { /* ignore */ }
-
-        // Try window.close (may fail) then fallback to about:blank
-        try { window.open('', '_self'); window.close(); } catch (err) {/* ignore */ }
+        try { document.documentElement.style.transition = 'none'; document.body.style.visibility = 'hidden'; if (document.activeElement) document.activeElement.blur(); } catch (err) {}
+        try { window.open('', '_self'); window.close(); } catch (err) {}
         try { window.location.replace('about:blank'); } catch (err) { window.location.href = 'about:blank'; }
       }, { passive: true });
     });
 
-
-    /* -------------------------
-       FAQ TOGGLE
-       ------------------------- */
     safeRun('initFaqs', function initFaqs() {
       const faqButtons = Array.from(document.querySelectorAll('.faq-question'));
       if (!faqButtons.length) {
@@ -211,7 +178,6 @@
           const answer = parent.querySelector('.faq-answer');
           const isOpen = answer && answer.classList.contains('open');
 
-          // close all
           document.querySelectorAll('.faq-answer.open').forEach(a => a.classList.remove('open'));
           document.querySelectorAll('.faq-question.active').forEach(q => q.classList.remove('active'));
 
@@ -226,10 +192,6 @@
       });
     });
 
-
-    /* -------------------------
-       Contact form demo handler (prevents page reload while testing)
-       ------------------------- */
     safeRun('initContactForm', function initContactForm() {
       const form = document.querySelector('.contact-form');
       if (!form) return;
