@@ -2113,3 +2113,150 @@ header.byteback-header {
   .partner-marquee-wrap { padding: 8px 6px; }
   .marquee-caption { font-size: 0.82rem; }
 }
+/* ===== Fixes for the "Know Your Rights" / info-card / helplines / panic button layout =====
+   Add this to the END of your style.css and hard-refresh the page (Ctrl/Cmd+Shift+R).
+   It:
+   - ensures .info-card anchors look like cards (no underlines, correct padding/box-shadow)
+   - centers the heading + body inside those cards (so "Know Your Rights" looks right)
+   - removes link underlines inside the card while keeping clickable elements obvious on hover
+   - centers the panic button in its card and keeps the neon/pill styling
+   - keeps the helpline list readable (left aligned) while centering the call-to-action button
+=========================================================================== */
+
+ /* Make info-card anchors behave like visual cards (no underlines) */
+a.info-card,
+a.info-card:link,
+a.info-card:visited {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: #111; /* fallback if var not available */
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,255,224,0.07);
+  transition: box-shadow .18s ease, transform .12s ease;
+  margin-bottom: 12px;
+}
+
+/* Keep hover/active affordance */
+a.info-card:hover,
+a.info-card:focus {
+  box-shadow: 0 10px 36px rgba(0,255,224,0.10), 0 0 18px rgba(255,77,109,0.06);
+  transform: translateY(-4px);
+  outline: none;
+}
+
+/* Remove text-decoration on any children (safe and scoped) */
+a.info-card,
+a.info-card h4,
+a.info-card p,
+a.info-card .helpline-cta {
+  text-decoration: none !important;
+}
+
+/* Card heading (centered and styled) */
+a.info-card h4,
+.info-card h4 {
+  margin: 0 0 10px 0;
+  color: var(--neon-mint);
+  font-family: var(--ivy-serif);
+  font-weight: 900;
+  font-size: 1.1rem;
+  text-align: center;    /* center the heading inside the card */
+  -webkit-text-fill-color: initial;
+}
+
+/* Card body text (centered and readable) */
+a.info-card p,
+.info-card p {
+  margin: 0;
+  color: var(--muted, #cfeee9);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;    /* center paragraph inside the card */
+}
+
+/* Helplines card: keep list left-aligned for readability, center CTA */
+.info-card.helplines-card {
+  text-align: center; /* centers the heading & CTA but keeps list left below */
+}
+.info-card.helplines-card .helpline-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 10px auto;
+  max-width: 360px;
+  text-align: left; /* readable left-aligned numbers */
+}
+.info-card.helplines-card .helpline-list li {
+  margin-bottom: 8px;
+}
+.info-card.helplines-card .helpline-list a {
+  color: var(--neon-mint);
+  text-decoration: none; /* remove default underline inside the list */
+  font-weight: 700;
+}
+.info-card.helplines-card .helpline-list a:hover {
+  color: var(--neon-pink);
+  text-decoration: underline;
+}
+
+/* Ensure the Emergency Helpline CTA uses the neon pill look and is centered */
+.info-card.helplines-card .helpline-cta,
+.info-card.helplines-card .hero-btn-neon.helpline-cta {
+  display: inline-block;
+  margin: 12px auto 0 auto;
+  text-align: center;
+}
+
+/* Panic card: center the panic button and apply the neon pill style */
+.info-card.panic-card,
+.panic-card {
+  text-align: center;
+  padding-bottom: 12px;
+}
+.panic-btn,
+.panic-card .panic-btn {
+  /* reuse the hero/pill visual style but slightly smaller */
+  display: inline-block;
+  background: var(--gradient);
+  color: #101010;
+  font-weight: 900;
+  border-radius: 999px;
+  padding: 10px 16px;
+  box-shadow: 0 0 20px #00ffe0bb, 0 0 12px #ff4d6d66;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: transform .14s ease, box-shadow .14s ease;
+  margin: 8px auto 10px auto;
+}
+.panic-btn:hover,
+.panic-card .panic-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 34px #00ffe0bb, 0 0 28px #ff4d6d66;
+}
+
+/* Accessibility: ensure focus outlines are visible on keyboard focus */
+a.info-card:focus,
+.panic-btn:focus,
+.info-card .hero-btn-neon:focus {
+  outline: 3px solid rgba(0,255,224,0.14);
+  outline-offset: 3px;
+}
+
+/* Defensive: if some other rule forces text-align or float, neutralize for these cards */
+a.info-card,
+.info-card {
+  float: none !important;
+  width: auto !important;
+}
+
+/* Small screens: slightly reduce padding so cards don't appear too tall */
+@media (max-width:700px) {
+  a.info-card, .info-card {
+    padding: 14px;
+  }
+  .panic-btn { padding: 9px 12px; font-size: 0.95rem; }
+}
