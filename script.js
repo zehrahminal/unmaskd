@@ -43,6 +43,30 @@
 
               // Stagger .glide-bottom children inside the section
               const glideEls = Array.from(section.querySelectorAll('.glide-bottom'));
+              // Count-up animation for stat numbers when Rollout section becomes visible
+if (section.id === 'rollout') {
+  const counters = section.querySelectorAll('.count-up');
+
+  counters.forEach(counter => {
+    const target = +counter.dataset.target;
+    let current = 0;
+    const duration = 900; 
+    const increment = target / (duration / 16);
+
+    const update = () => {
+      current += increment;
+      if (current < target) {
+        counter.textContent = Math.floor(current);
+        requestAnimationFrame(update);
+      } else {
+        counter.textContent = target;
+      }
+    };
+
+    requestAnimationFrame(update);
+  });
+}
+
               glideEls.forEach((el, i) => {
                 // Use small incremental delays
                 el.style.animationDelay = `${i * 100}ms`;
