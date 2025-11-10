@@ -51,9 +51,12 @@
       font-family: 'Playfair Display', serif;
       font-weight:700;
       font-size:1.9rem;
-      color:linear-gradient(90deg,#ffe066,#ff4d6d,#00ffe0);
+      /* gradient text */
+      background: linear-gradient(90deg,var(--accent-yellow),var(--accent-pink),var(--accent-mint));
+      background-size: 300% 300%;
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
+      color: transparent;
     }
     .site-desc {
       color:var(--muted);
@@ -86,11 +89,21 @@
       color:var(--muted);
     }
 
+    /* Layout: top row 3 small cards for pies; bottom row 2 wide cards (bar + line) */
     .grid {
-      display:grid;
+      display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--gap);
       margin-top:12px;
+      align-items: start;
+    }
+
+    .wide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+      margin-top: 24px;
+      align-items: start;
     }
 
     .card {
@@ -102,7 +115,7 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:space-between;
+      justify-content:flex-start;
     }
 
     .card h3 {
@@ -113,10 +126,24 @@
       text-align:center;
     }
 
+    /* Ensure canvases scale responsively inside cards */
+    .chart-wrap {
+      width: 100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
     canvas {
       width:100% !important;
-      max-width: 320px;
+      max-width: 360px;
       height: 260px !important;
+      display: block;
+    }
+
+    /* For wide charts allow larger canvases */
+    .card.wide canvas {
+      max-width: 100%;
+      height: 360px !important;
     }
 
     .legend {
@@ -143,9 +170,19 @@
       display:inline-block;
     }
 
+    /* Small descriptive caption area under charts if needed */
+    .caption {
+      color:var(--muted);
+      font-size:0.92rem;
+      margin-top:10px;
+      text-align:center;
+      max-width: 860px;
+    }
+
     /* Responsive */
     @media (max-width: 980px) {
       .grid { grid-template-columns: repeat(2, 1fr); }
+      .wide-grid { grid-template-columns: 1fr; }
       canvas { height:220px !important; }
     }
     @media (max-width: 640px) {
@@ -160,13 +197,17 @@
       text-align:center;
       font-size:0.95rem;
     }
+
+    /* subtle heading underline to match site vibe */
+    .site-header > div:first-child { flex: 1 1 auto; }
+    .site-title { display:block; }
   </style>
 </head>
 <body>
   <div class="page" role="main">
-    <header class="site-header">
+    <header class="site-header" aria-labelledby="inf-title">
       <div>
-        <div class="site-title">Infographic Series</div>
+        <div id="inf-title" class="site-title">Infographic Series</div>
         <div class="site-desc">Visual breakdowns of digital abuse trends.</div>
       </div>
       <div style="margin-left:auto;">
@@ -174,30 +215,58 @@
       </div>
     </header>
 
-    <p class="intro">Below are three quick visual summaries. Hover (or tap) any slice to view a tooltip with percentage breakdowns. Charts animate on page load.</p>
+    <p class="intro">Below are three pie charts plus a current-status bar chart and a before/after line comparison. Hover (or tap) any slice to view a tooltip. Charts animate on page load and are responsive.</p>
 
+    <!-- Top row: three pie charts -->
     <section class="grid" aria-label="Infographic charts">
       <article class="card" aria-labelledby="chart1-title">
         <h3 id="chart1-title">Types of Cyber Abuse</h3>
-        <canvas id="chartTypes" aria-label="Pie chart showing types of cyber abuse"></canvas>
-        <div class="legend" id="legend-types"></div>
+        <div class="chart-wrap" style="min-height:260px;">
+          <canvas id="chartTypes" role="img" aria-label="Pie chart showing types of cyber abuse"></canvas>
+        </div>
+        <div class="legend" id="legend-types" aria-hidden="false"></div>
       </article>
 
       <article class="card" aria-labelledby="chart2-title">
         <h3 id="chart2-title">Age Group Affected</h3>
-        <canvas id="chartAges" aria-label="Pie chart showing age groups affected"></canvas>
+        <div class="chart-wrap" style="min-height:260px;">
+          <canvas id="chartAges" role="img" aria-label="Pie chart showing age groups affected"></canvas>
+        </div>
         <div class="legend" id="legend-ages"></div>
       </article>
 
       <article class="card" aria-labelledby="chart3-title">
         <h3 id="chart3-title">Platform Distribution</h3>
-        <canvas id="chartPlatforms" aria-label="Pie chart showing platform distribution"></canvas>
+        <div class="chart-wrap" style="min-height:260px;">
+          <canvas id="chartPlatforms" role="img" aria-label="Pie chart showing platform distribution"></canvas>
+        </div>
         <div class="legend" id="legend-platforms"></div>
       </article>
     </section>
 
-    <footer class="site-footer">
-      <small>Data shown are fictional and for illustrative purposes only.</small>
+    <!-- Bottom row: bar + line charts -->
+    <section class="wide-grid" aria-label="Summary charts">
+      <article class="card wide" aria-labelledby="chart4-title">
+        <h3 id="chart4-title">Current Numbers — Snapshot</h3>
+        <div class="chart-wrap">
+          <canvas id="chartSnapshot" role="img" aria-label="Bar chart showing current numbers for users, downloads, outreach events, site visits"></canvas>
+        </div>
+        <div class="legend" id="legend-snapshot"></div>
+        <div class="caption">Current values for our platform metrics (example snapshot).</div>
+      </article>
+
+      <article class="card wide" aria-labelledby="chart5-title">
+        <h3 id="chart5-title">Before vs After Using Unmask’d</h3>
+        <div class="chart-wrap">
+          <canvas id="chartBeforeAfter" role="img" aria-label="Line chart comparing before and after metrics over months"></canvas>
+        </div>
+        <div class="legend" id="legend-beforeafter"></div>
+        <div class="caption">Two series compare average user-reported confidence & reporting rates before and after intervention.</div>
+      </article>
+    </section>
+
+    <footer class="site-footer" role="contentinfo">
+      <small>Data shown are illustrative / fictional and match the visual style of Unmask'd.</small>
     </footer>
   </div>
 
@@ -209,10 +278,11 @@
       yellow: '#ffe066',
       purple: '#9b6bff',
       teal: '#22d1c9',
-      deep: '#6de0ff'
+      deep: '#6de0ff',
+      darkBorder: '#0b0b0b'
     };
 
-    // Helper: build legend HTML
+    // Helper: build legend HTML (custom for pies)
     function renderLegend(containerId, labels, colors) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -224,11 +294,13 @@
       });
     }
 
-    // Chart.js global defaults (colors, fonts)
+    // Chart.js global defaults (fonts, colors)
     Chart.defaults.font.family = "'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial";
     Chart.defaults.color = '#e6f7f4';
-    Chart.defaults.plugins.legend.display = false;
+    // Keep pie custom legends, enable built-in legend for bar/line
+    Chart.defaults.plugins.legend.labels.boxWidth = 16;
     Chart.defaults.plugins.tooltip.cornerRadius = 6;
+    Chart.defaults.maintainAspectRatio = false;
 
     // Utility: create pie chart with percentage tooltip
     function createPie(ctx, labels, data, colors) {
@@ -240,18 +312,17 @@
           datasets: [{
             data: data,
             backgroundColor: colors,
-            borderColor: '#0b0b0b',
+            borderColor: COLORS.darkBorder,
             borderWidth: 2,
+            hoverOffset: 8
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          animation: {
-            duration: 900,
-            easing: 'easeOutQuart'
-          },
+          animation: { duration: 900, easing: 'easeOutQuart' },
           plugins: {
+            legend: { display: false }, // we use custom legend below
             tooltip: {
               callbacks: {
                 label: function(context) {
@@ -266,7 +337,116 @@
       });
     }
 
-    // Fake data
+    // Utility: create bar chart (snapshot)
+    function createBar(ctx, labels, data, colors) {
+      return new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Current',
+            data: data,
+            backgroundColor: colors,
+            borderColor: colors.map(c => tinyAlpha(c, 0.9)),
+            borderWidth: 1,
+            borderRadius: 8,
+            maxBarThickness: 64
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: '#dff7f2', font: { weight: 700 } }
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.04)' },
+              ticks: { color: '#dff7f2' },
+              beginAtZero: true
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  return ctx.dataset.label + ': ' + ctx.formattedValue;
+                }
+              }
+            }
+          },
+          animation: { duration: 900, easing: 'easeOutQuart' }
+        }
+      });
+    }
+
+    // Utility: create line chart (before vs after)
+    function createBeforeAfterLine(ctx, labels, seriesA, seriesB, colorA, colorB) {
+      return new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Before',
+              data: seriesA,
+              borderColor: colorA,
+              backgroundColor: tinyAlpha(colorA, 0.12),
+              tension: 0.28,
+              pointRadius: 4,
+              pointBackgroundColor: colorA,
+              fill: true
+            },
+            {
+              label: 'After',
+              data: seriesB,
+              borderColor: colorB,
+              backgroundColor: tinyAlpha(colorB, 0.12),
+              tension: 0.28,
+              pointRadius: 4,
+              pointBackgroundColor: colorB,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: true, labels: { color: '#dff7f2' } },
+            tooltip: { mode: 'index', intersect: false }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: '#dff7f2' }
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.04)' },
+              ticks: { color: '#dff7f2' },
+              beginAtZero: false
+            }
+          },
+          animation: { duration: 900, easing: 'easeOutQuart' }
+        }
+      });
+    }
+
+    // tiny helper to produce semi-transparent background
+    function tinyAlpha(hex, alpha) {
+      // convert #rrggbb to rgba
+      const c = hex.replace('#','');
+      const r = parseInt(c.substring(0,2),16);
+      const g = parseInt(c.substring(2,4),16);
+      const b = parseInt(c.substring(4,6),16);
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+
+    // ========== Fake/example data (you can replace with real data) ==========
+    // Pie charts
     const typesLabels = ['Harassment','Scam','Phishing','Stalking'];
     const typesData = [42, 28, 18, 12];
     const typesColors = [COLORS.mint, COLORS.pink, COLORS.yellow, COLORS.purple];
@@ -279,22 +459,55 @@
     const platformData = [54, 30, 16];
     const platformColors = [COLORS.mint, COLORS.purple, COLORS.pink];
 
-    // Render charts on DOM ready
+    // Bar snapshot labels (current numbers)
+    const snapshotLabels = ['Users', 'Downloads', 'Outreach events', 'Site visits'];
+    const snapshotValues = [22000, 4800, 320, 125000];
+    // Map to colors (re-using theme)
+    const snapshotColors = [COLORS.mint, COLORS.pink, COLORS.yellow, COLORS.purple];
+
+    // Before/After line chart (monthly series example)
+    const months = ['Jan','Feb','Mar','Apr','May','Jun'];
+    // Example metric: average confidence score (0-100)
+    const beforeSeries = [42, 45, 44, 43, 46, 45];
+    const afterSeries  = [55, 60, 64, 68, 72, 78];
+
+    // ===== Render charts on DOM ready =====
     document.addEventListener('DOMContentLoaded', function(){
-      // Types chart
+      // Pie: Types
       const ctxTypes = document.getElementById('chartTypes').getContext('2d');
       createPie(ctxTypes, typesLabels, typesData, typesColors);
       renderLegend('legend-types', typesLabels, typesColors);
 
-      // Ages chart
+      // Pie: Ages
       const ctxAges = document.getElementById('chartAges').getContext('2d');
       createPie(ctxAges, ageLabels, ageData, ageColors);
       renderLegend('legend-ages', ageLabels, ageColors);
 
-      // Platforms chart
+      // Pie: Platforms
       const ctxPlatforms = document.getElementById('chartPlatforms').getContext('2d');
       createPie(ctxPlatforms, platformLabels, platformData, platformColors);
       renderLegend('legend-platforms', platformLabels, platformColors);
+
+      // Bar: Snapshot
+      const ctxSnapshot = document.getElementById('chartSnapshot').getContext('2d');
+      createBar(ctxSnapshot, snapshotLabels, snapshotValues, snapshotColors);
+      // custom legend for snapshot (show label + color)
+      renderLegend('legend-snapshot', snapshotLabels, snapshotColors);
+
+      // Line: Before vs After
+      const ctxBeforeAfter = document.getElementById('chartBeforeAfter').getContext('2d');
+      createBeforeAfterLine(ctxBeforeAfter, months, beforeSeries, afterSeries, COLORS.pink, COLORS.mint);
+      // legend for this chart can be built-in, but add a small textual legend too
+      const laf = document.getElementById('legend-beforeafter');
+      if (laf) {
+        laf.innerHTML = '';
+        const s1 = document.createElement('span');
+        s1.innerHTML = '<i class="dot" style="background:' + COLORS.pink + ';"></i> Before';
+        const s2 = document.createElement('span');
+        s2.innerHTML = '<i class="dot" style="background:' + COLORS.mint + ';"></i> After';
+        laf.appendChild(s1);
+        laf.appendChild(s2);
+      }
     });
   </script>
 </body>
