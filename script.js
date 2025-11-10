@@ -1,20 +1,43 @@
-// Main site JS: slideshow, modal (donation), panic exit, FAQ toggles
-// Place this as your script.js (this file replaces/contains your site's JS)
+// script.js — full site script (clean, defensive, with debug logging)
+// Save this as script.js and make sure <script src="script.js"></script> is included
+// just before the closing </body> tag in your index.html.
 
 (function () {
   'use strict';
 
-  // Run after DOM ready
+  // global error handler to surface issues quickly
+  window.addEventListener('error', function (ev) {
+    // keep visible in console and as an alert during debug (remove alert later)
+    console.error('Uncaught error:', ev.message, ev.error);
+  });
+
+  console.log('script.js loaded');
+
   document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM ready');
 
     /* -------------------------
-       HERO SLIDESHOW (simple)
+       HELPER: safeRun - catches errors so one bug doesn't stop everything
        ------------------------- */
-    (function initSlideshow() {
+    function safeRun(fnName, fn) {
+      try {
+        fn();
+      } catch (err) {
+        console.error(`Error in ${fnName}:`, err);
+      }
+    }
+
+    /* -------------------------
+       HERO SLIDESHOW
+       ------------------------- */
+    safeRun('initSlideshow', function initSlideshow() {
       const slides = Array.from(document.querySelectorAll('.hero-slide'));
       const prevBtn = document.querySelector('.slide-arrow.prev');
       const nextBtn = document.querySelector('.slide-arrow.next');
-      if (!slides.length) return;
+      if (!slides.length) {
+        console.log('No slides found, skipping slideshow.');
+        return;
+      }
 
       let current = slides.findIndex(s => s.classList.contains('active'));
       if (current < 0) current = 0;
@@ -41,26 +64,31 @@
       function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
       function resetAuto() { startAuto(); }
 
-      // init
       showSlide(current);
       startAuto();
 
-      // Pause autoplay on mouse over for UX
       const hero = document.querySelector('.hero-slideshow');
       if (hero) {
         hero.addEventListener('mouseenter', stopAuto);
         hero.addEventListener('mouseleave', startAuto);
       }
-    })();
+    });
 
 
     /* -------------------------
        DONATION MODAL
        ------------------------- */
-    (function initDonationModal() {
+    safeRun('initDonationModal', function initDonationModal() {
       const donateBtn = document.getElementById('donateBtn');
       const modal = document.getElementById('donateModal');
-      if (!donateBtn || !modal) return;
+      if (!donateBtn) {
+        console.log('donateBtn not found, skipping donation modal init.');
+        return;
+      }
+      if (!modal) {
+        console.log('donateModal not found, skipping donation modal init.');
+        return;
+      }
 
       const modalContent = modal.querySelector('.modal-content');
       const closeTriggers = modal.querySelectorAll('[data-close-modal], .modal-close');
@@ -72,7 +100,7 @@
         modal.classList.add('show');
         modal.setAttribute('aria-hidden', 'false');
         document.documentElement.style.overflow = 'hidden'; // lock scroll
-        // Focus the first focusable element inside modal, or modal content
+        // focus first focusable element or modal content
         const focusable = getFocusable(modal);
         if (focusable.length) focusable[0].focus();
         else if (modalContent) modalContent.focus();
@@ -93,25 +121,19 @@
         btn.addEventListener('click', (e) => { e.preventDefault(); closeModal(); });
       });
 
-      // Close on overlay click
       modal.addEventListener('click', (e) => {
         if (e.target === modal || e.target.classList.contains('modal-overlay')) {
           closeModal();
         }
       });
 
-      // Close on ESC
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('show')) {
-          closeModal();
-        }
+        if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
       });
 
-      // Focus trap implementation
       function trapFocus() {
         const focusable = getFocusable(modal);
         if (!focusable.length) return;
-
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
 
@@ -139,50 +161,49 @@
 
       function getFocusable(context) {
         const selector = 'a[href], area[href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
-        return Array.from((context || document).querySelectorAll(selector)).filter(el => el.offsetParent !== null);
+        return Array.from((context || document).querySelectorAll(selector)).filter(el => {
+          // ensure visible
+          return el.offsetParent !== null && window.getComputedStyle(el).visibility !== 'hidden';
+        });
       }
-    })();
+    });
 
 
     /* -------------------------
        PANIC EXIT BUTTON
        ------------------------- */
-    (function initPanicExit() {
+    safeRun('initPanicExit', function initPanicExit() {
       const btn = document.getElementById('panicExitBtn');
-      if (!btn) return;
+      if (!btn) {
+        console.log('panicExitBtn not found, skipping panic exit init.');
+        return;
+      }
 
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        // Hide immediately for privacy
+        // hide immediately for privacy
         try {
           document.documentElement.style.transition = 'none';
           document.body.style.visibility = 'hidden';
           if (document.activeElement) document.activeElement.blur();
-        } catch (err) {
-          // ignore
-        }
-
-        // Try to close window (may be blocked)
-        try {
-          window.open('', '_self');
-          window.close();
         } catch (err) { /* ignore */ }
 
-        // Fallback: navigate away and replace history
-        try {
-          window.location.replace('about:blank');
-        } catch (err) {
-          window.location.href = 'about:blank';
-        }
+        // Try window.close (may fail) then fallback to about:blank
+        try { window.open('', '_self'); window.close(); } catch (err) {/* ignore */ }
+        try { window.location.replace('about:blank'); } catch (err) { window.location.href = 'about:blank'; }
       }, { passive: true });
-    })();
+    });
 
 
     /* -------------------------
        FAQ TOGGLE
        ------------------------- */
-    (function initFaqs() {
+    safeRun('initFaqs', function initFaqs() {
       const faqButtons = Array.from(document.querySelectorAll('.faq-question'));
+      if (!faqButtons.length) {
+        console.log('No FAQ buttons found.');
+        return;
+      }
       faqButtons.forEach(btn => {
         btn.addEventListener('click', () => {
           const parent = btn.closest('.faq-item');
@@ -198,25 +219,22 @@
             answer.classList.add('open');
             btn.classList.add('active');
           } else {
-            // already closed -> ensure removed
             if (answer) answer.classList.remove('open');
             btn.classList.remove('active');
           }
         });
       });
-    })();
+    });
 
 
     /* -------------------------
-       Small UX: prevent contact form default (optional)
+       Contact form demo handler (prevents page reload while testing)
        ------------------------- */
-    (function initContactForm() {
+    safeRun('initContactForm', function initContactForm() {
       const form = document.querySelector('.contact-form');
       if (!form) return;
       form.addEventListener('submit', (e) => {
-        // Let your backend handle submissions. For now prevent accidental navigation during testing.
         e.preventDefault();
-        // Basic UI feedback (you can replace with real submit)
         const submit = form.querySelector('button[type="submit"]');
         if (submit) {
           submit.disabled = true;
@@ -228,8 +246,7 @@
           }, 1400);
         }
       });
-    })();
+    });
 
-  }); // DOMContentLoaded end
-
-})(); // IIFE end
+  }); // DOMContentLoaded
+})(); // IIFE
