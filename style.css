@@ -1653,6 +1653,32 @@ footer,
   font-weight: 700;
   color: #ffffff;
 }
+/* --- Add this to style.css (or inside <style> in the page head) --- */
+
+/* Ensure main section headings are centered */
+.main-heading {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Center hero slide titles and their paragraphs */
+.slide-title,
+.hero-intro-wide,
+.slide-desc {
+  text-align: center;
+}
+
+/* Center smaller title blocks that use glide-bottom if needed */
+.header-title-block,
+.header-tagline {
+  text-align: center;
+}
+
+/* If many elements use the glide-bottom helper and should be centered,
+   uncomment the following line to center them globally:
+*/
+/* .glide-bottom { text-align: center; } */
 
 .donate-text {
   margin: 0;
