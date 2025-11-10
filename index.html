@@ -244,8 +244,12 @@
       <div style="display:flex; flex-wrap:wrap; gap:32px; justify-content:center;">
         <div style="flex:1;min-width:280px;max-width:400px;background:#161616;border-radius:12px;padding:20px;box-shadow:0 0 12px #00ffe033;text-align:center;">[Chatbot Placeholder]</div>
         <div style="flex:1;min-width:280px;max-width:400px;">
-          <div class="info-card"><h4 class="glide-bottom">⚖️ Know Your Rights</h4><p>Understand PECA and cyber laws in Pakistan using our AI chatbot - first of its kind in Pakistan.</p></div>
-
+<!-- Replace the existing Know Your Rights info-card in the #legal section with this anchor-card.
+     This makes the whole card link to the FIA Cybercrime Portal and opens in a new tab. -->
+<a href="https://complaint.fia.gov.pk/" target="_blank" rel="noopener noreferrer" class="info-card know-rights" aria-label="Open FIA Cybercrime Portal">
+  <h4 class="glide-bottom">⚖️ Know Your Rights</h4>
+  <p>Understand PECA and cyber laws in Pakistan using our AI chatbot - first of its kind in Pakistan.</p>
+</a>
           <!-- Emergency Helplines (clickable tel: links) -->
           <div class="info-card helplines-card">
             <h4 class="glide-bottom">📞 Emergency Helplines</h4>
