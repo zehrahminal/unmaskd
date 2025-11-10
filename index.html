@@ -9,6 +9,139 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Inline styles for the Stories gallery & lightbox (keeps changes local to this file) -->
+  <style>
+    /* Gallery grid (3x3) */
+    .story-gallery {
+      margin: 24px 0 48px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+    .gallery-item {
+      background: #111;
+      color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }
+    .gallery-thumb {
+      display: block;
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      cursor: zoom-in;
+      background: #222;
+    }
+    .gallery-caption {
+      padding: 12px 14px;
+      font-size: 14px;
+      line-height: 1.35;
+      background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.04));
+      color: #eee;
+    }
+    .gallery-item .meta {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #dcdcdc;
+    }
+
+    /* Empty cells to preserve 3x3 layout (visually subtle) */
+    .gallery-empty {
+      background: #f5f5f5;
+      border: 2px dashed #e6e6e6;
+      min-height: 220px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 14px;
+    }
+
+    /* Lightbox/modal */
+    .gallery-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.85);
+      z-index: 1200;
+      padding: 24px;
+    }
+    .gallery-modal.show { display: flex; }
+    .gallery-modal-content {
+      max-width: 1100px;
+      width: 100%;
+      background: #0b0b0b;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      max-height: 92vh;
+    }
+    .gallery-modal-media {
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1 1 auto;
+      min-height: 320px;
+    }
+    .gallery-modal-media img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      display: block;
+    }
+    .gallery-modal-footer {
+      padding: 14px 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .gallery-modal-caption {
+      font-size: 15px;
+      line-height: 1.4;
+      color: #f3f3f3;
+      flex: 1 1 auto;
+    }
+    .gallery-modal-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-ghost:focus { outline: 2px solid #9bd3ff; outline-offset: 2px; }
+
+    @media (max-width: 900px) {
+      .gallery-thumb { height: 160px; }
+      .gallery-grid { gap: 12px; }
+    }
+    @media (max-width: 640px) {
+      .gallery-grid { grid-template-columns: repeat(1, 1fr); }
+      .gallery-thumb { height: 260px; }
+    }
+  </style>
 </head>
 <body>
   <!-- HEADER -->
@@ -169,7 +302,82 @@
     <section id="stories">
       <h1 class="main-heading glide-bottom">Unmask'd Stories</h1>
       <div class="hero-intro-wide glide-bottom">Through photos and captions, we document silence, shame, and survival.</div>
-      <div class="story-gallery glide-bottom">[Gallery of emotional stories with filters like #resistance, #grief, #recovery]</div>
+
+      <!-- 3x3 Gallery grid - order follows the images & captions provided -->
+      <div class="story-gallery glide-bottom" aria-label="Unmask'd Stories gallery">
+        <div class="gallery-grid" role="list">
+          <!-- 1 -->
+          <div class="gallery-item" role="listitem">
+            <img class="gallery-thumb" src="images/affected.jpeg" alt="Her screenshots became her scars" data-index="0" />
+            <div class="gallery-caption">
+              She told us, “They didn’t touch me — they typed me into fear.”
+              Her screenshots became her scars, proof of what invisible violence feels like.
+              But when we spoke of reporting, her eyes steadied — courage re-entered the frame.
+              She’s not just a victim of a message; she’s a voice reclaiming her right to exist online.
+            </div>
+          </div>
+
+          <!-- 2 (note: filename contains a space; URL-encoded for safety) -->
+          <div class="gallery-item" role="listitem">
+            <img class="gallery-thumb" src="images/candy%20wrapper.jpeg" alt="Photographed wrapped in plastic to show suffocation of online hate" data-index="1" />
+            <div class="gallery-caption">
+              Online hate feels like suffocation — silent, sticky, unseen.
+              We photographed her wrapped in plastic, like the inboxes that smother without a hand.
+              When she learned that Pakistan’s cybercrime laws could breathe justice, she inhaled again.
+              Awareness became her oxygen; her story now saves others from silence.
+            </div>
+          </div>
+
+          <!-- 3 -->
+          <div class="gallery-item" role="listitem">
+            <img class="gallery-thumb" src="images/dolls.jpeg" alt="She felt like a manufactured doll" data-index="2" />
+            <div class="gallery-caption">
+              “They told me to look perfect online — like plastic,” she whispered.
+              But every filtered photo chipped away at something human.
+              In our interviews, she said she felt like a doll factory — manufactured, judged, discarded.
+              Now she mentors girls on body-image and consent; imperfection is her rebellion.
+            </div>
+          </div>
+
+          <!-- 4 -->
+          <div class="gallery-item" role="listitem">
+            <img class="gallery-thumb" src="images/during.jpeg" alt="This is how society edits women" data-index="3" />
+            <div class="gallery-caption">
+              This is how society edits women — not with Photoshop, but with pressure.
+              Every comment told her who to be, until she didn’t recognize herself.
+              We asked her to sit still for this photo, and she said, “This is how I’ve lived my life — still.”
+              Now she teaches digital literacy, reminding girls that beauty needs no algorithm.
+            </div>
+          </div>
+
+          <!-- 5 (filename contains a space; URL-encoded) -->
+          <div class="gallery-item" role="listitem">
+            <img class="gallery-thumb" src="images/affected%202.jpeg" alt="She was told to delete her account to feel safe" data-index="4" />
+            <div class="gallery-caption">
+              She was told to delete her account to feel safe — as if silence was safety.
+              When we met her, she hadn’t spoken in days; her anxiety was louder than any threat.
+              Through counseling and awareness sessions, she found strength in collective healing.
+              Now, she leads workshops titled “Unmute Yourself.”
+            </div>
+          </div>
+
+          <!-- 6 -->
+          <div class="gallery-item" role="listitem">
+            <img class="gallery-thumb" src="images/feminist.jpeg" alt="She now writes op-eds on online misogyny" data-index="5" />
+            <div class="gallery-caption">
+              Once they called her “too loud” for speaking, “too bold” for breathing freely.
+              Now she writes op-eds on online misogyny — unapologetic, unfiltered.
+              The same internet that tried to shame her now amplifies her truth.
+              Our camera didn’t just capture her — it captured evolution.
+            </div>
+          </div>
+
+          <!-- 7-9: empty placeholders to preserve a 3x3 grid. They are decorative and aria-hidden -->
+          <div class="gallery-empty" aria-hidden="true">—</div>
+          <div class="gallery-empty" aria-hidden="true">—</div>
+          <div class="gallery-empty" aria-hidden="true">—</div>
+        </div>
+      </div>
     </section>
 
     <!-- Insights -->
@@ -338,7 +546,24 @@
     </div>
   </div>
 
-  <!-- Scripts: slideshow, scroll reveal, modal, panic, FAQ, contact -->
+  <!-- Gallery lightbox modal -->
+  <div id="galleryModal" class="gallery-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Image viewer">
+    <div class="gallery-modal-content" role="document">
+      <div class="gallery-modal-media" id="galleryMedia" tabindex="0">
+        <img id="galleryImage" src="" alt="">
+      </div>
+      <div class="gallery-modal-footer">
+        <div class="gallery-modal-caption" id="galleryCaption">Caption</div>
+        <div class="gallery-modal-controls" aria-hidden="false">
+          <button class="btn-ghost" id="prevBtn" aria-label="Previous image">&larr;</button>
+          <button class="btn-ghost" id="nextBtn" aria-label="Next image">&rarr;</button>
+          <button class="btn-ghost" id="closeGallery" aria-label="Close viewer">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts: slideshow, scroll reveal, modal, panic, FAQ, contact, gallery -->
   <script>
   (function () {
     'use strict';
@@ -529,6 +754,95 @@
             submit.textContent = 'Message sent (demo)';
             setTimeout(function () { submit.disabled = false; submit.textContent = 'Send Message'; form.reset(); }, 1400);
           }
+        });
+      });
+
+      /* -------------------------
+         STORIES GALLERY (lightbox)
+         ------------------------- */
+      safeRun('initGallery', function () {
+        const thumbs = Array.from(document.querySelectorAll('.gallery-thumb'));
+        if (!thumbs.length) return;
+
+        // Build data array from DOM
+        const items = thumbs.map(img => {
+          const container = img.closest('.gallery-item');
+          const captionEl = container ? container.querySelector('.gallery-caption') : null;
+          return {
+            src: img.getAttribute('src'),
+            alt: img.getAttribute('alt') || '',
+            caption: captionEl ? captionEl.innerHTML.trim() : '',
+            thumbEl: img
+          };
+        });
+
+        const modal = document.getElementById('galleryModal');
+        const modalImage = document.getElementById('galleryImage');
+        const modalCaption = document.getElementById('galleryCaption');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const closeBtn = document.getElementById('closeGallery');
+
+        let current = 0;
+        let lastFocus = null;
+
+        function open(index) {
+          current = (index % items.length + items.length) % items.length;
+          const it = items[current];
+          modalImage.src = it.src;
+          modalImage.alt = it.alt || '';
+          modalCaption.innerHTML = it.caption || '';
+          modal.classList.add('show');
+          modal.setAttribute('aria-hidden', 'false');
+          lastFocus = document.activeElement;
+          // lock scroll
+          document.documentElement.style.overflow = 'hidden';
+          closeBtn.focus();
+        }
+
+        function close() {
+          modal.classList.remove('show');
+          modal.setAttribute('aria-hidden', 'true');
+          modalImage.src = '';
+          modalCaption.textContent = '';
+          document.documentElement.style.overflow = '';
+          if (lastFocus && lastFocus.focus) lastFocus.focus();
+        }
+
+        function showNext() { open(current + 1); }
+        function showPrev() { open(current - 1); }
+
+        // click handlers on thumbnails
+        thumbs.forEach((img, i) => {
+          img.setAttribute('tabindex', '0');
+          img.addEventListener('click', function (e) { e.preventDefault(); open(i); });
+          img.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+          });
+        });
+
+        // modal controls
+        nextBtn.addEventListener('click', function (e) { e.preventDefault(); showNext(); });
+        prevBtn.addEventListener('click', function (e) { e.preventDefault(); showPrev(); });
+        closeBtn.addEventListener('click', function (e) { e.preventDefault(); close(); });
+
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal) close();
+        });
+
+        // keyboard navigation
+        document.addEventListener('keydown', function (e) {
+          if (!modal.classList.contains('show')) return;
+          if (e.key === 'Escape') { e.preventDefault(); close(); }
+          if (e.key === 'ArrowRight') { e.preventDefault(); showNext(); }
+          if (e.key === 'ArrowLeft') { e.preventDefault(); showPrev(); }
+        });
+
+        // handle image-loading errors gracefully
+        modalImage.addEventListener('error', function () {
+          modalImage.style.opacity = 0.6;
+          modalCaption.innerHTML = (modalCaption.innerHTML || '') + '<br><em>Image failed to load.</em>';
+          console.warn('Gallery image failed to load:', modalImage.src);
         });
       });
 
