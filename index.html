@@ -41,8 +41,8 @@
 
     <!-- HERO SLIDESHOW SECTION -->
     <section id="home" class="hero-slideshow-section">
-      <div class="hero-slideshow">
-        <div class="hero-slide active">
+      <div class="hero-slideshow" aria-roledescription="carousel">
+        <div class="hero-slide active" role="group" aria-label="slide 1">
           <div class="slide-bg" style="background-image: url('images/keyboard.jpg');"></div>
           <div class="slide-content">
             <h1 class="slide-title glide-bottom">EMPOWERING YOUR LEGAL JOURNEY FIND THE RIGHT LAWYER NEAR YOU</h1>
@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <div class="hero-slide">
+        <div class="hero-slide" role="group" aria-label="slide 2">
           <div class="slide-bg" style="background-image: url('images/hacker.jpg');"></div>
           <div class="slide-content">
             <h1 class="slide-title glide-bottom">JUSTICE FOR ALL SUPPORT FOR THE VULNERABLE</h1>
@@ -62,7 +62,7 @@
           </div>
         </div>
 
-        <div class="hero-slide">
+        <div class="hero-slide" role="group" aria-label="slide 3">
           <div class="slide-bg" style="background-image: url('images/slut.jpg');"></div>
           <div class="slide-content">
             <h1 class="slide-title glide-bottom">CONNECT WITH EXPERTS GET FREE LEGAL HELP</h1>
@@ -72,7 +72,7 @@
           </div>
         </div>
 
-        <div class="hero-slide">
+        <div class="hero-slide" role="group" aria-label="slide 4">
           <div class="slide-bg" style="background-image: url('images/harassment.jpg');"></div>
           <div class="slide-content">
             <h1 class="slide-title glide-bottom">TAKE ACTION TODAY DEFEND YOUR RIGHTS</h1>
@@ -82,8 +82,8 @@
           </div>
         </div>
 
-        <button class="slide-arrow prev">&#10094;</button>
-        <button class="slide-arrow next">&#10095;</button>
+        <button class="slide-arrow prev" aria-label="Previous slide">&#10094;</button>
+        <button class="slide-arrow next" aria-label="Next slide">&#10095;</button>
       </div>
     </section>
     <!-- END HERO -->
@@ -93,25 +93,25 @@
       <h1 class="main-heading glide-bottom">Digital Defense Hub</h1>
       <div class="hero-intro-wide glide-bottom">Explore legal resources, stories, and connect with experts dedicated to justice for all.</div>
       <div class="tool-card-grid four">
-<a href="https://ctrlaltsafephish.streamlit.app/" target="_blank" rel="noopener noreferrer" class="tool-card-link" aria-label="Open Phishing Detector (external)">
-  <h3><span class="icon">🕵️</span>Phishing Detector</h3>
-  <p>Scan screenshots to detect scam signs.</p>
-</a>        
-<!-- Replace the existing "Scam Quiz" card with this (inside the Digital Defense Hub tool-card-grid) -->
-<a href="https://zehrahminal.github.io/Unmask-d-Quiz/" target="_blank" rel="noopener noreferrer" class="tool-card-link" aria-label="Open Scam Quiz (external)">
-  <h3><span class="icon">🧠</span>Scam Quiz</h3>
-  <p>Test your instincts. Learn red flags.</p>
-</a>       
+        <a href="https://ctrlaltsafephish.streamlit.app/" target="_blank" rel="noopener noreferrer" class="tool-card-link" aria-label="Open Phishing Detector (external)">
+          <h3><span class="icon">🕵️</span>Phishing Detector</h3>
+          <p>Scan screenshots to detect scam signs.</p>
+        </a>
+        <a href="https://zehrahminal.github.io/Unmask-d-Quiz/" target="_blank" rel="noopener noreferrer" class="tool-card-link" aria-label="Open Scam Quiz (external)">
+          <h3><span class="icon">🧠</span>Scam Quiz</h3>
+          <p>Test your instincts. Learn red flags.</p>
+        </a>
         <a href="#" class="tool-card-link"><h3><span class="icon">🔐</span>Password Tester</h3><p>Check how crackable your passwords are.</p></a>
-       <div class="tool-card">
-  <h3>📄 Reporting Templates</h3>
-  <p>Auto-fill FIRs and social platform complaints.</p>
-  <a href="Unmask%E2%80%99d%20Reporting%20Template.pdf"
-     download="Unmask’d Reporting Template.pdf"
-     class="download-btn">
-    Download Reporting Template
-  </a>
-</div>
+        <div class="tool-card">
+          <h3>📄 Reporting Templates</h3>
+          <p>Auto-fill FIRs and social platform complaints.</p>
+          <a href="Unmask%E2%80%99d%20Reporting%20Template.pdf"
+             download="Unmask’d Reporting Template.pdf"
+             class="download-btn">
+            Download Reporting Template
+          </a>
+        </div>
+      </div>
     </section>
 
     <!-- Legal Aid Bot -->
@@ -122,34 +122,30 @@
         <div style="flex:1;min-width:280px;max-width:400px;background:#161616;border-radius:12px;padding:20px;box-shadow:0 0 12px #00ffe033;text-align:center;">[Chatbot Placeholder]</div>
         <div style="flex:1;min-width:280px;max-width:400px;">
           <div class="info-card"><h4 class="glide-bottom">⚖️ Know Your Rights</h4><p>Understand PECA and cyber laws in Pakistan.</p></div>
-<!-- Replace the existing Emergency Helplines info-card with this -->
-<div class="info-card helplines-card">
-  <h4 class="glide-bottom">📞 Emergency Helplines</h4>
-  <p>Tap any number to call immediately from a mobile device:</p>
 
-  <ul class="helpline-list">
-    <li>
-      <a href="tel:+92519211344" aria-label="Call FIA Cybercrime">FIA Cybercrime: +92-51-9211344</a>
-    </li>
-    <li>
-      <!-- Domestic toll-free -->
-      <a href="tel:080039393" aria-label="Call DRF Helpline (toll free)">DRF Helpline (toll-free): 0800-39393</a>
-      <!-- Optional international dial fallback (some phones/networks) -->
-      <small class="helpline-small"> if calling from outside Pakistan: <a href="tel:+9280039393">+92 800 39393</a></small>
-    </li>
-    <li>
-      <a href="tel:+922199260045" aria-label="Call Cyber Police Karachi">Cyber Police (Karachi): +92-21-99260045</a>
-    </li>
-  </ul>
+          <!-- Emergency Helplines (clickable tel: links) -->
+          <div class="info-card helplines-card">
+            <h4 class="glide-bottom">📞 Emergency Helplines</h4>
+            <p>Tap any number to call immediately from a mobile device:</p>
 
-  <!-- Prominent single-button CTA (optional) — set href to primary emergency number -->
-  <a href="tel:+92519211344" class="hero-btn-neon helpline-cta" aria-label="Call FIA Cybercrime now">Emergency Helpline</a>
-</div>
-          <!-- Replace the existing Panic Exit info-card with this -->
-<div class="info-card panic-card">
-  <button id="panicExitBtn" class="panic-btn glide-bottom" title="Instantly exit this page">🚪 Panic Exit</button>
-  <p>Instantly close this page with one click.</p>
-</div>        </div>
+            <ul class="helpline-list">
+              <li><a href="tel:+92519211344" aria-label="Call FIA Cybercrime">FIA Cybercrime: +92-51-9211344</a></li>
+              <li>
+                <a href="tel:080039393" aria-label="Call DRF Helpline (toll free)">DRF Helpline (toll-free): 0800-39393</a>
+                <small class="helpline-small"> if calling from outside Pakistan: <a href="tel:+9280039393">+92 800 39393</a></small>
+              </li>
+              <li><a href="tel:+922199260045" aria-label="Call Cyber Police Karachi">Cyber Police (Karachi): +92-21-99260045</a></li>
+            </ul>
+
+            <a href="tel:+92519211344" class="hero-btn-neon helpline-cta" aria-label="Call FIA Cybercrime now">Emergency Helpline</a>
+          </div>
+
+          <!-- Panic Exit -->
+          <div class="info-card panic-card">
+            <button id="panicExitBtn" class="panic-btn glide-bottom" title="Instantly exit this page">🚪 Panic Exit</button>
+            <p>Instantly close this page with one click.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -162,7 +158,6 @@
         <div class="stat-block"><h2 class="glide-bottom">15+</h2><p>Schools onboarded</p></div>
         <div class="stat-block"><h2 class="glide-bottom">98%</h2><p>Felt more confident online</p></div>
       </div>
-      <!-- Toolkit download (file should be placed next to index.html or adjust path) -->
       <a href="Unmask%27d%20Toolkit.pdf" download="Unmask'd Toolkit.pdf" class="hero-btn-neon glide-bottom">Download School Toolkit PDF</a>
       <div class="testimonial glide-bottom">“Unmask'd helped my class understand real-world online dangers. It’s not boring — it’s empowering.”</div>
     </section>
@@ -177,11 +172,9 @@
     <!-- Insights -->
     <section id="insights">
       <h1 class="main-heading glide-bottom">Insights & Evidence</h1>
-<!-- Replace the "Infographic Series" tool-card in your Insights section with this link -->
-<a href="infographics.html" class="tool-card-link" aria-label="Open Infographic Series">
-  <h3>Infographic Series</h3>
-  <p>Visual breakdowns of digital abuse trends.</p>
-</a>      <div class="tool-card-grid four">
+      <div class="hero-intro-wide glide-bottom">Research, reporting, and infographics to help you understand digital abuse.</div>
+
+      <div class="tool-card-grid four">
         <div class="tool-card">
           <h3>2025 Research Report</h3>
           <p>What we learned from 100+ teen interviews.</p>
@@ -203,6 +196,7 @@
         <div class="tool-card">
           <h3>Infographic Series</h3>
           <p>Visual breakdowns of digital abuse trends.</p>
+          <a href="infographics.html" class="download-btn" aria-label="Open Infographic Series">View Infographics</a>
         </div>
       </div>
     </section>
@@ -256,7 +250,7 @@
         </form>
         <div class="contact-info">
           <div><strong>Email:</strong> <a href="mailto:info@unmaskd.pk">info@unmaskd.pk</a></div>
-          <div><strong>Helpline:</strong> <a href="tel:+923001234567">+92 300 122869</a></div>
+          <div><strong>Helpline:</strong> <a href="tel:+92300122869">+92 300 122869</a></div>
           <div><strong>Social:</strong>
             <a href="https://facebook.com/unmaskd.pk" target="_blank">Facebook</a> |
             <a href="https://instagram.com/unmaskd.pk" target="_blank">Instagram</a> |
@@ -330,7 +324,7 @@
       <button type="button" class="modal-close" aria-label="Close donation dialog" data-close-modal>&times;</button>
       <div class="modal-body">
         <!-- Recommended filename: images/qr-code.png (no spaces) -->
-        <img src="images/qr code.png" alt="Donation QR code" class="donation-qr">
+        <img src="images/qr-code.png" alt="Donation QR code" class="donation-qr" onerror="this.style.opacity=.5;console.warn('QR image load failed')">
         <h2 id="donateTitle">💖 Donate to Unmask’d</h2>
         <p class="donate-text">
           Scan this QR code with JazzCash/EasyPaisa app<br>
@@ -341,93 +335,201 @@
     </div>
   </div>
 
-  <!-- scripts -->
-  <script src="script.js"></script>
-
-  <!-- Embedded modal behaviour so the modal works immediately (keeps your external script.js intact) -->
+  <!-- Scripts: slideshow, scroll reveal, modal, panic, FAQ, contact -->
   <script>
   (function () {
-    const donateBtn = document.getElementById('donateBtn');
-    const modal = document.getElementById('donateModal');
-    if (!donateBtn || !modal) return;
+    'use strict';
+    // Defensive startup log
+    console.log('index.html inline script loaded');
 
-    const modalContent = modal.querySelector('.modal-content');
-    const closeTriggers = modal.querySelectorAll('[data-close-modal]');
-    let previouslyFocused = null;
-
-    function openModal() {
-      previouslyFocused = document.activeElement;
-      modal.classList.add('show');
-      modal.setAttribute('aria-hidden', 'false');
-      document.documentElement.style.overflow = 'hidden';
-      // focus the modal content for screen readers/keyboard users
-      if (modalContent) modalContent.focus();
-      trapFocus();
+    // Utility: safe run
+    function safeRun(name, fn) {
+      try { fn(); } catch (err) { console.error('Error in', name, err); }
     }
 
-    function closeModal() {
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden', 'true');
-      document.documentElement.style.overflow = '';
-      removeTrap();
-      if (previouslyFocused) previouslyFocused.focus();
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log('DOM ready');
 
-    donateBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      openModal();
-    });
-
-    closeTriggers.forEach(btn => {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        closeModal();
-      });
-    });
-
-    // click outside content to close
-    modal.addEventListener('click', function (e) {
-      if (e.target === modal || e.target.classList.contains('modal-overlay')) {
-        closeModal();
-      }
-    });
-
-    // ESC key closes
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && modal.classList.contains('show')) {
-        closeModal();
-      }
-    });
-
-    // Basic focus trap
-    let handleKeydown;
-    function trapFocus() {
-      const focusable = modal.querySelectorAll('a[href], button:not([disabled]), textarea, input[type="text"], input[type="email"], [tabindex]:not([tabindex="-1"])');
-      if (!focusable.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-
-      handleKeydown = function (e) {
-        if (e.key !== 'Tab') return;
-        if (e.shiftKey) { // shift + tab
-          if (document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else { // tab
-          if (document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
+      /* -------------------------
+         SCROLL REVEAL (IntersectionObserver)
+         ------------------------- */
+      safeRun('initScrollReveal', function () {
+        // Remove any pre-added visible class (defensive)
+        try { document.querySelectorAll('section.visible').forEach(s => s.classList.remove('visible')); } catch (e) {}
+        if ('IntersectionObserver' in window) {
+          const obs = new IntersectionObserver((entries, o) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const sec = entry.target;
+                sec.classList.add('visible');
+                const glide = Array.from(sec.querySelectorAll('.glide-bottom'));
+                glide.forEach((el, i) => el.style.animationDelay = (i * 120) + 'ms');
+                o.unobserve(sec);
+              }
+            });
+          }, { root: null, threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+          document.querySelectorAll('section').forEach(s => obs.observe(s));
+        } else {
+          document.querySelectorAll('section').forEach(s => s.classList.add('visible'));
         }
-      };
-      modal.addEventListener('keydown', handleKeydown);
-    }
+      });
 
-    function removeTrap() {
-      if (handleKeydown) modal.removeEventListener('keydown', handleKeydown);
-      handleKeydown = null;
-    }
+      /* -------------------------
+         HERO SLIDESHOW
+         ------------------------- */
+      safeRun('initSlideshow', function () {
+        const slides = Array.from(document.querySelectorAll('.hero-slide'));
+        if (!slides.length) return;
+        const prevBtn = document.querySelector('.slide-arrow.prev');
+        const nextBtn = document.querySelector('.slide-arrow.next');
+        let idx = slides.findIndex(s => s.classList.contains('active'));
+        if (idx < 0) idx = 0;
+        let timer = null;
+        const AUTO = 8000;
+
+        function show(i) {
+          if (i < 0) i = slides.length - 1;
+          if (i >= slides.length) i = 0;
+          slides.forEach((s, j) => s.classList.toggle('active', j === i));
+          idx = i;
+        }
+        function next() { show(idx + 1); }
+        function prev() { show(idx - 1); }
+        function start() { stop(); timer = setInterval(next, AUTO); }
+        function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+        if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); next(); start(); });
+        if (prevBtn) prevBtn.addEventListener('click', e => { e.preventDefault(); prev(); start(); });
+
+        const hero = document.querySelector('.hero-slideshow');
+        if (hero) { hero.addEventListener('mouseenter', stop); hero.addEventListener('mouseleave', start); }
+
+        show(idx); start();
+      });
+
+      /* -------------------------
+         DONATION MODAL
+         ------------------------- */
+      safeRun('initDonationModal', function () {
+        const donateBtn = document.getElementById('donateBtn');
+        const modal = document.getElementById('donateModal');
+        if (!donateBtn || !modal) return;
+        // prevent duplicate inits
+        if (donateBtn.dataset.modalInit) return;
+        donateBtn.dataset.modalInit = '1';
+
+        const modalContent = modal.querySelector('.modal-content');
+        const closeTriggers = modal.querySelectorAll('[data-close-modal], .modal-close');
+        let lastFocus = null;
+        let keyHandler = null;
+
+        function getFocusable() {
+          const sel = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+          return Array.from(modal.querySelectorAll(sel)).filter(el => el.offsetParent !== null);
+        }
+
+        function open() {
+          lastFocus = document.activeElement;
+          modal.classList.add('show');
+          modal.setAttribute('aria-hidden', 'false');
+          document.documentElement.style.overflow = 'hidden';
+          const focusable = getFocusable();
+          if (focusable.length) focusable[0].focus();
+          else if (modalContent) modalContent.focus();
+          trap();
+        }
+        function close() {
+          modal.classList.remove('show');
+          modal.setAttribute('aria-hidden', 'true');
+          document.documentElement.style.overflow = '';
+          untrap();
+          if (lastFocus && lastFocus.focus) lastFocus.focus();
+        }
+
+        donateBtn.addEventListener('click', function (e) { e.preventDefault(); open(); });
+        closeTriggers.forEach(btn => btn.addEventListener('click', function (e) { e.preventDefault(); close(); }));
+
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal || e.target.classList.contains('modal-overlay')) close();
+        });
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && modal.classList.contains('show')) close();
+        });
+
+        function trap() {
+          const focusable = getFocusable();
+          if (!focusable.length) return;
+          const first = focusable[0], last = focusable[focusable.length - 1];
+          keyHandler = function (e) {
+            if (e.key !== 'Tab') return;
+            if (e.shiftKey) {
+              if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+            } else {
+              if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+            }
+          };
+          modal.addEventListener('keydown', keyHandler);
+        }
+        function untrap() { if (keyHandler) modal.removeEventListener('keydown', keyHandler); keyHandler = null; }
+      });
+
+      /* -------------------------
+         PANIC EXIT
+         ------------------------- */
+      safeRun('initPanicExit', function () {
+        const btn = document.getElementById('panicExitBtn');
+        if (!btn) return;
+        if (btn.dataset.panicInit) return;
+        btn.dataset.panicInit = '1';
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          try { document.documentElement.style.transition = 'none'; document.body.style.visibility = 'hidden'; if (document.activeElement) document.activeElement.blur(); } catch (err) {}
+          try { window.open('', '_self'); window.close(); } catch (err) {}
+          try { window.location.replace('about:blank'); } catch (err) { window.location.href = 'about:blank'; }
+        }, { passive: true });
+      });
+
+      /* -------------------------
+         FAQ toggles
+         ------------------------- */
+      safeRun('initFaqs', function () {
+        const buttons = Array.from(document.querySelectorAll('.faq-question'));
+        buttons.forEach(btn => {
+          if (btn.dataset.bound) return;
+          btn.dataset.bound = '1';
+          btn.addEventListener('click', function () {
+            const parent = btn.closest('.faq-item');
+            if (!parent) return;
+            const answer = parent.querySelector('.faq-answer');
+            const open = answer && answer.classList.contains('open');
+            document.querySelectorAll('.faq-answer.open').forEach(a => a.classList.remove('open'));
+            document.querySelectorAll('.faq-question.active').forEach(q => q.classList.remove('active'));
+            if (!open && answer) { answer.classList.add('open'); btn.classList.add('active'); }
+          });
+        });
+      });
+
+      /* -------------------------
+         Contact form demo
+         ------------------------- */
+      safeRun('initContactForm', function () {
+        const form = document.querySelector('.contact-form');
+        if (!form) return;
+        if (form.dataset.bound) return;
+        form.dataset.bound = '1';
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const submit = form.querySelector('button[type="submit"]');
+          if (submit) {
+            submit.disabled = true;
+            submit.textContent = 'Message sent (demo)';
+            setTimeout(function () { submit.disabled = false; submit.textContent = 'Send Message'; form.reset(); }, 1400);
+          }
+        });
+      });
+
+    }); // DOMContentLoaded
   })();
   </script>
 
