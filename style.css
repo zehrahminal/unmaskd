@@ -1708,3 +1708,41 @@ section {
   align-items: center;
 }
 */
+/* --- Append to the VERY END of style.css --- */
+/* Center the third card in the "triangle" grid (Collaborate or Donate) */
+/* This forces the third item to span both columns and be centered like the Infographic card above. */
+.tool-card-grid.triangle {
+  /* ensure it's a two-column grid (if your existing layout already does this, these rules are harmless) */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+/* Target the third child (the "Collaborate or Donate" card in your HTML) and make it span the full row */
+.tool-card-grid.triangle > .tool-card-link:nth-child(3),
+.tool-card-grid.triangle > .tool-card:nth-child(3) {
+  grid-column: 1 / -1;       /* span both columns */
+  justify-self: center;      /* center within the grid area */
+  width: 100%;
+  max-width: 720px;          /* limit width so it matches the visual style of other centered cards */
+  display: block;
+}
+
+/* Ensure the donate anchor (#donateBtn) behaves as a full card and is centered */
+#donateBtn {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Optional: keep internal text alignment as before (left inside card) or center the contents:
+   Uncomment the next block if you want the card's text to be centered as well. */
+/*
+.tool-card-grid.triangle > .tool-card-link:nth-child(3) .icon,
+.tool-card-grid.triangle > .tool-card-link:nth-child(3) h3,
+.tool-card-grid.triangle > .tool-card-link:nth-child(3) p {
+  text-align: center;
+}
+*/
