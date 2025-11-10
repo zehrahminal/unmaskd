@@ -1674,4 +1674,37 @@ footer,
 .header-tagline {
   text-align: center;
 }
+/* ---- Append this to the VERY END of style.css ---- */
+/* Force main headings (and related hero headings) to be centered.
+   This uses stronger rules to override other styles that may be forcing
+   left-alignment (floats, flex children, more specific selectors, etc.). */
+.main-heading,
+.slide-title,
+.hero-intro-wide,
+.slide-desc,
+.header-title-block,
+.header-tagline {
+  display: block !important;
+  float: none !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
 
+/* Extra safety: remove inline transforms that could visually offset headings */
+.main-heading[style] {
+  transform: none !important;
+}
+
+/* If a parent is a flex container that aligns children to the left,
+   margin:auto on the heading will center it horizontally within the flex item.
+   If a parent sets justify-content: flex-start and you *want* the entire section
+   content centered, uncomment the next rule to center the section's contents. */
+/*
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+*/
