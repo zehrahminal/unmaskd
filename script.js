@@ -1,40 +1,55 @@
-// script.js — robust site script with section visibility fix and debug logs
+// script.js — defensive site script (replace your current script.js with this)
 (function () {
   'use strict';
 
-  // show global errors in console
+  // Quick startup log
+  console.log('script.js (defensive) loaded');
+
+  // Try to make sections visible immediately to avoid blank page if other code errors
+  try {
+    if (document.querySelectorAll) {
+      document.querySelectorAll('section').forEach(s => s.classList.add('visible'));
+      console.log('Immediate: .visible added to sections');
+    }
+  } catch (err) {
+    console.warn('Immediate section reveal failed (will try on DOMContentLoaded):', err);
+  }
+
+  // Global error handler to surface unexpected errors
   window.addEventListener('error', function (ev) {
     console.error('Uncaught error:', ev.message, ev.error);
   });
 
-  console.log('script.js loaded');
+  // Utility: run code safely so a single error doesn't stop everything
+  function safeRun(name, fn) {
+    try {
+      fn();
+    } catch (err) {
+      console.error(`Error in ${name}:`, err);
+    }
+  }
 
+  // DOM-ready entry
   document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM ready');
+    console.log('DOMContentLoaded');
 
-    // Ensure sections are visible (fix for CSS that hides sections by default)
+    // Ensure sections visible (in case immediate attempt ran before DOM ready)
     try {
       document.querySelectorAll('section').forEach(s => s.classList.add('visible'));
-      console.log('Added .visible to sections');
+      console.log('DOMContentLoaded: .visible ensured on sections');
     } catch (err) {
-      console.error('Error adding .visible to sections', err);
+      console.error('Failed to add .visible to sections on DOMContentLoaded:', err);
     }
 
-    // Helper to run blocks safely
-    function safeRun(name, fn) {
-      try {
-        fn();
-      } catch (err) {
-        console.error(`Error in ${name}:`, err);
-      }
-    }
-
+    /* -------------------------
+       HERO SLIDESHOW
+       ------------------------- */
     safeRun('initSlideshow', function initSlideshow() {
       const slides = Array.from(document.querySelectorAll('.hero-slide'));
       const prevBtn = document.querySelector('.slide-arrow.prev');
       const nextBtn = document.querySelector('.slide-arrow.next');
       if (!slides.length) {
-        console.log('No slides found, skipping slideshow.');
+        console.log('No slides found (slideshow skipped).');
         return;
       }
 
@@ -71,13 +86,18 @@
         hero.addEventListener('mouseenter', stopAuto);
         hero.addEventListener('mouseleave', startAuto);
       }
+
+      console.log('Slideshow initialized');
     });
 
+    /* -------------------------
+       DONATION MODAL
+       ------------------------- */
     safeRun('initDonationModal', function initDonationModal() {
       const donateBtn = document.getElementById('donateBtn');
       const modal = document.getElementById('donateModal');
       if (!donateBtn || !modal) {
-        console.log('Donation modal or button not found (skipping).');
+        console.log('Donation modal/button not present — skipping modal init.');
         return;
       }
 
@@ -89,7 +109,12 @@
       function getFocusable(context) {
         const selector = 'a[href], area[href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
         return Array.from((context || document).querySelectorAll(selector)).filter(el => {
-          return el.offsetParent !== null && window.getComputedStyle(el).visibility !== 'hidden';
+          // Ensure element is visible
+          try {
+            return el.offsetParent !== null && window.getComputedStyle(el).visibility !== 'hidden';
+          } catch (e) {
+            return true;
+          }
         });
       }
 
@@ -146,29 +171,43 @@
       modal.addEventListener('click', (e) => {
         if (e.target === modal || e.target.classList.contains('modal-overlay')) closeModal();
       });
+
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
       });
+
+      console.log('Donation modal initialized');
     });
 
+    /* -------------------------
+       PANIC EXIT
+       ------------------------- */
     safeRun('initPanicExit', function initPanicExit() {
       const btn = document.getElementById('panicExitBtn');
       if (!btn) {
-        console.log('panicExitBtn not found (skipping).');
+        console.log('panicExitBtn not found — skipping');
         return;
       }
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        try { document.documentElement.style.transition = 'none'; document.body.style.visibility = 'hidden'; if (document.activeElement) document.activeElement.blur(); } catch (err) {}
+        try {
+          document.documentElement.style.transition = 'none';
+          document.body.style.visibility = 'hidden';
+          if (document.activeElement) document.activeElement.blur();
+        } catch (err) {}
         try { window.open('', '_self'); window.close(); } catch (err) {}
         try { window.location.replace('about:blank'); } catch (err) { window.location.href = 'about:blank'; }
       }, { passive: true });
+      console.log('Panic exit initialized');
     });
 
+    /* -------------------------
+       FAQ toggle
+       ------------------------- */
     safeRun('initFaqs', function initFaqs() {
       const faqButtons = Array.from(document.querySelectorAll('.faq-question'));
       if (!faqButtons.length) {
-        console.log('No FAQ buttons found.');
+        console.log('No FAQ buttons found (skipping).');
         return;
       }
       faqButtons.forEach(btn => {
@@ -190,8 +229,12 @@
           }
         });
       });
+      console.log('FAQ toggles initialized');
     });
 
+    /* -------------------------
+       Contact form demo handler
+       ------------------------- */
     safeRun('initContactForm', function initContactForm() {
       const form = document.querySelector('.contact-form');
       if (!form) return;
@@ -208,6 +251,7 @@
           }, 1400);
         }
       });
+      console.log('Contact form handler initialized (demo)');
     });
 
   }); // DOMContentLoaded
