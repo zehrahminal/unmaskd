@@ -1,133 +1,135 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <title>Unmask'd — Pakistan's Youth Legal Aid Platform</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Unmask'd is Pakistan’s first gender-sensitive, youth-powered legal aid platform fighting online abuse through tools, law, and empathy.">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900;700&family=Open+Sans:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Inline styles for the Stories gallery & lightbox (keeps changes local to this file) -->
+  <!-- Inline small gallery CSS kept (unchanged) -->
   <style>
     /* Gallery grid (3x3 visual layout but with however many items provided) */
-    .story-gallery {
-      margin: 24px 0 48px;
-    }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      align-items: stretch;
-    }
-    .gallery-item {
-      background: #111;
-      color: #fff;
-      border-radius: 8px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-    }
-    .gallery-thumb {
-      display: block;
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      cursor: zoom-in;
-      background: #222;
-    }
-    .gallery-caption {
-      padding: 12px 14px;
-      font-size: 14px;
-      line-height: 1.35;
-      background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.04));
-      color: #eee;
-    }
-    .gallery-item .meta {
-      margin-top: 8px;
-      font-size: 13px;
-      color: #dcdcdc;
+    .story-gallery { margin: 24px 0 48px; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+    .gallery-item { background: #111; color: #fff; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+    .gallery-thumb { display: block; width: 100%; height: 220px; object-fit: cover; cursor: zoom-in; background: #222; }
+    .gallery-caption { padding: 12px 14px; font-size: 14px; line-height: 1.35; background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.04)); color: #eee; }
+    @media (max-width: 900px) { .gallery-thumb { height: 160px; } .gallery-grid { gap: 12px; } }
+    @media (max-width: 640px) { .gallery-grid { grid-template-columns: repeat(1, 1fr); } .gallery-thumb { height: 260px; } }
+  </style>
+
+  <!-- Authoritative inline overrides for header + legal panel + chatbot preview + marquee + modal + info-card fixes.
+       These are loaded after style.css to avoid cascading conflicts; they are intentionally specific. -->
+  <style>
+    /* ----------------------------
+       Header: logo left, title centered in viewport
+       ---------------------------- */
+    header.byteback-header { position: relative; display: flex !important; align-items: center; justify-content: flex-start; padding: 22px 48px; max-width: 1200px; margin: 0 auto; box-sizing: border-box; }
+    .header-logo { margin: 0; flex: 0 0 auto; height: 90px; width: auto; display: block; filter: drop-shadow(0 0 24px #00ffe066); }
+    .header-title-block { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(880px, 70%); display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; pointer-events: none; }
+    .header-title-block * { pointer-events: auto; }
+    .header-title, .title-gradient, .header-tagline { text-align: center !important; }
+    @media (max-width: 820px) {
+      header.byteback-header { flex-direction: column; padding: 18px 16px; }
+      .header-title-block { position: static; transform: none; margin-top: 10px; }
+      .header-logo { height: 62px; margin-bottom: 6px; }
     }
 
-    /* Lightbox/modal */
-    .gallery-modal {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.85);
-      z-index: 1200;
-      padding: 24px;
+    /* ----------------------------
+       Info-card anchor normalization (removes underlines, ensures card visuals)
+       Applies to "Know Your Rights" anchor and any a.info-card
+       ---------------------------- */
+    a.info-card, a.info-card:link, a.info-card:visited, a.info-card:hover, a.info-card:focus {
+      display: block !important;
+      text-decoration: none !important;
+      color: inherit !important;
+      background: var(--card-bg, #111) !important;
+      border: 1.5px solid var(--window-border, rgba(255,255,255,0.06)) !important;
+      padding: 18px !important;
+      border-radius: 12px !important;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.55) !important;
+      transition: box-shadow .18s ease, transform .12s ease !important;
     }
-    .gallery-modal.show { display: flex; }
-    .gallery-modal-content {
+    a.info-card * { text-decoration: none !important; }
+
+    /* ----------------------------
+       Partner marquee (inlined so it matches theme)
+       ---------------------------- */
+    .partner-marquee-wrap { width: 100%; max-width: 980px; margin: 20px auto 8px; padding: 12px 8px; box-sizing: border-box; display:flex; flex-direction:column; align-items:center; gap:8px; }
+    .partner-marquee { width:100%; overflow:hidden; border-radius:12px; padding:6px 0; background: transparent; }
+    .marquee-track { display:flex; gap:28px; align-items:center; will-change:transform; animation: marquee-scroll 20s linear infinite; padding: 6px; }
+    .marquee-item { display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto; background: var(--card-bg, #181c1e); padding:6px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); box-shadow:0 8px 28px rgba(0,0,0,0.55); }
+    .marquee-item img { height:56px; width:auto; object-fit:contain; border-radius:6px; filter: drop-shadow(0 6px 24px rgba(0,255,224,0.12)); }
+    .marquee-caption { font-size:0.92rem; color:var(--neon-mint, #00ffe0); font-weight:700; }
+    @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; overflow-x:auto; } }
+    @media (max-width:900px) { .marquee-item img { height:48px; } .marquee-track { gap:20px; } }
+    @media (max-width:520px) { .marquee-item img { height:40px; } .partner-marquee-wrap { padding:8px 6px; } .marquee-caption { font-size:0.82rem; } }
+
+    /* ----------------------------
+       Chatbot preview & Legal panel authoritative styles
+       Scoped strongly to #legal so other pages unaffected
+       ---------------------------- */
+    #legal { padding-top: 6px; padding-bottom: 6px; }
+    #legal .legal-panel {
       max-width: 1100px;
-      width: 100%;
-      background: #0b0b0b;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      max-height: 92vh;
+      margin: 28px auto !important;
+      padding: 18px !important;
+      box-sizing: border-box !important;
+      border-radius: 14px !important;
+      border: 1.5px solid var(--window-border, #bbbbbb) !important;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)) !important;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 28px rgba(0,255,224,0.12) !important;
     }
-    .gallery-modal-media {
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1 1 auto;
-      min-height: 320px;
-    }
-    .gallery-modal-media img {
-      max-width: 100%;
-      max-height: 80vh;
-      object-fit: contain;
-      display: block;
-    }
-    .gallery-modal-footer {
-      padding: 14px 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .gallery-modal-caption {
-      font-size: 15px;
-      line-height: 1.4;
-      color: #f3f3f3;
-      flex: 1 1 auto;
-    }
-    .gallery-modal-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-ghost {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #fff;
-      padding: 8px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .btn-ghost:focus { outline: 2px solid #9bd3ff; outline-offset: 2px; }
+    #legal .legal-panel-inner { display:flex !important; gap:28px !important; align-items:flex-start !important; justify-content:space-between !important; flex-wrap:nowrap !important; }
+    #legal .panel-left { flex:0 0 400px !important; max-width:400px !important; }
+    #legal .panel-right { flex:1 1 420px !important; display:flex !important; flex-direction:column !important; gap:18px !important; }
 
+    /* Chat preview specifics */
+    #legal .chatbot-preview { background: transparent !important; padding: 0 !important; border-radius: 8px !important; box-shadow:none !important; }
+    #legal .chatbot-header { display:flex; gap:12px; align-items:center; margin-bottom:8px; }
+    #legal .chatbot-avatar { width:40px; height:40px; border-radius:8px; display:flex; align-items:center; justify-content:center; background: linear-gradient(180deg, rgba(0,255,224,0.07), rgba(255,77,109,0.03)); box-shadow:0 6px 18px rgba(0,255,224,0.06); }
+    #legal .chatbot-header-text .chatbot-title { font-family:var(--ivy-serif); font-weight:900; color:var(--neon-mint); font-size:1rem; }
+    #legal .chatbot-header-text .chatbot-sub { font-size:.78rem; color:#cfeee9; }
+
+    #legal .chatbot-window { padding:12px !important; border-radius:10px !important; border:1px solid rgba(255,255,255,0.02) !important; height:260px !important; box-sizing:border-box !important; background: rgba(0,0,0,0.06) !important; overflow:hidden !important; }
+    #legal .chatbot-messages { height:100% !important; display:flex !important; flex-direction:column !important; gap:12px !important; justify-content:flex-end !important; align-items:stretch !important; padding:0 !important; }
+    #legal .chatbot-message .msg { padding:10px 12px !important; border-radius:10px !important; word-break:break-word !important; white-space:normal !important; font-size:.95rem !important; line-height:1.35 !important; }
+    #legal .chatbot-message.bot .msg { background: linear-gradient(180deg, rgba(0,255,224,0.04), rgba(0,255,224,0.02)) !important; color: var(--neon-mint) !important; border:1px solid rgba(0,255,224,0.06) !important; }
+    #legal .chatbot-message.user .msg { background:#101315 !important; color:#fff !important; border:1px solid rgba(255,255,255,0.03) !important; box-shadow:0 6px 20px rgba(0,0,0,0.45) !important; }
+
+    /* Panel cards */
+    #legal .panel-card { background: var(--card-bg, #181c1e) !important; border:1.5px solid var(--window-border) !important; border-radius:12px !important; padding:18px !important; box-shadow:0 6px 20px rgba(0,0,0,0.55) !important; color:#fff !important; text-align:center !important; }
+    #legal .panel-card h4 { margin:0 0 10px 0 !important; color:var(--neon-mint) !important; font-family:var(--ivy-serif) !important; font-weight:900 !important; font-size:1.05rem !important; }
+    #legal .panel-helplines .helpline-list { list-style:none !important; margin:8px 0 0 0 !important; padding:0 !important; font-weight:700 !important; }
+    #legal .panel-helplines .helpline-list li { margin-bottom:8px !important; }
+    #legal .panel-helplines .helpline-list a { color:var(--neon-mint) !important; text-decoration:none !important; }
+
+    /* Ensure anchor cards show as cards */
+    #legal a.panel-know-rights { display:block !important; text-decoration:none !important; color:inherit !important; }
+
+    /* Buttons/pills inside panel */
+    #legal .panel-card .hero-btn-neon, #legal .chatbot-cta, #legal .panic-btn { display:inline-block !important; margin:12px auto 0 !important; padding:10px 18px !important; border-radius:999px !important; text-decoration:none !important; }
+
+    /* Accessibility / reduced motion */
+    @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none !important; overflow-x: auto !important; } }
+
+    /* Responsive: stack */
     @media (max-width: 900px) {
-      .gallery-thumb { height: 160px; }
-      .gallery-grid { gap: 12px; }
+      #legal .legal-panel-inner { flex-direction: column !important; gap:18px !important; }
+      #legal .panel-left, #legal .panel-right { width:100% !important; max-width:100% !important; flex:1 1 100% !important; }
+      #legal .chatbot-window { height: 220px !important; }
+      header.byteback-header { padding: 18px 12px !important; }
+      .header-logo { height: 62px !important; }
+      .header-title-block { position: static !important; transform: none !important; margin-top: 8px !important; }
     }
-    @media (max-width: 640px) {
-      .gallery-grid { grid-template-columns: repeat(1, 1fr); }
-      .gallery-thumb { height: 260px; }
-    }
+
+    /* Small extra safety: remove any global centering rule that might override the panel text */
+    #legal .panel-card p, #legal .panel-card h4 { text-align: center !important; }
   </style>
 </head>
 <body>
@@ -159,7 +161,7 @@
       </ul>
     </nav>
 
-    <!-- HERO SLIDESHOW SECTION -->
+    <!-- HERO SLIDESHOW SECTION (unchanged) -->
     <section id="home" class="hero-slideshow-section">
       <div class="hero-slideshow" aria-roledescription="carousel">
         <div class="hero-slide active" role="group" aria-label="slide 1">
@@ -171,7 +173,6 @@
             <a href="#legal" class="slide-cta glide-bottom">Speak to a lawyer</a>
           </div>
         </div>
-
         <div class="hero-slide" role="group" aria-label="slide 2">
           <div class="slide-bg" style="background-image: url('images/hacker.jpg');"></div>
           <div class="slide-content">
@@ -181,7 +182,6 @@
             <a href="#hub" class="slide-cta glide-bottom">Visit the Defense Hub</a>
           </div>
         </div>
-
         <div class="hero-slide" role="group" aria-label="slide 3">
           <div class="slide-bg" style="background-image: url('images/slut.jpg');"></div>
           <div class="slide-content">
@@ -191,7 +191,6 @@
             <a href="#legal" class="slide-cta glide-bottom">Use the Legal Aid Bot</a>
           </div>
         </div>
-
         <div class="hero-slide" role="group" aria-label="slide 4">
           <div class="slide-bg" style="background-image: url('images/harassment.jpg');"></div>
           <div class="slide-content">
@@ -206,9 +205,8 @@
         <button class="slide-arrow next" aria-label="Next slide">&#10095;</button>
       </div>
     </section>
-    <!-- END HERO -->
 
-    <!-- Digital Defense Hub -->
+    <!-- Digital Defense Hub (unchanged) -->
     <section id="hub">
       <h1 class="main-heading glide-bottom">Digital Defense Hub</h1>
       <div class="hero-intro-wide glide-bottom">Explore legal resources, stories, and connect with experts dedicated to justice for all.</div>
@@ -221,98 +219,92 @@
           <h3><span class="icon">🧠</span>Scam Quiz</h3>
           <p>Test your instincts. Learn red flags.</p>
         </a>
-<!-- Replace the existing Password Tester card -->
-<a href="passwordtester.html" class="tool-card-link" aria-label="Open Password Tester">
-  <h3><span class="icon">🔐</span>Password Tester</h3>
-  <p>Check how crackable your passwords are.</p>
-</a>        <div class="tool-card">
+        <a href="passwordtester.html" class="tool-card-link" aria-label="Open Password Tester">
+          <h3><span class="icon">🔐</span>Password Tester</h3>
+          <p>Check how crackable your passwords are.</p>
+        </a>
+        <div class="tool-card">
           <h3>📄 Reporting Templates</h3>
           <p>Auto-fill FIRs and social platform complaints.</p>
-          <a href="Unmask%E2%80%99d%20Reporting%20Template.pdf"
-             download="Unmask’d Reporting Template.pdf"
-             class="download-btn">
-            Download Reporting Template
-          </a>
+          <a href="Unmask%E2%80%99d%20Reporting%20Template.pdf" download="Unmask’d Reporting Template.pdf" class="download-btn">Download Reporting Template</a>
         </div>
       </div>
     </section>
 
-    <!-- Legal Aid Bot -->
-<section id="legal">
-  <h1 class="main-heading glide-bottom">Legal Aid Bot</h1>
-  <div class="hero-intro-wide glide-bottom">Ask questions and get instant legal guidance from our AI-powered bot.</div>
+    <!-- LEGAL: authoritative single-panel layout with chatbot preview and stacked cards -->
+    <section id="legal">
+      <h1 class="main-heading glide-bottom">Legal Aid Bot</h1>
+      <div class="hero-intro-wide glide-bottom">Ask questions and get instant legal guidance from our AI-powered bot.</div>
 
-  <div class="legal-panel glide-bottom" role="region" aria-labelledby="legal-panel">
-    <div class="legal-panel-inner">
-      <!-- LEFT: Chat preview -->
-      <div class="panel-left">
-        <div class="chatbot-preview" aria-label="Legal Aid Chatbot preview">
-          <div class="chatbot-header" aria-hidden="true">
-            <div class="chatbot-avatar">🤖</div>
-            <div class="chatbot-header-text">
-              <div class="chatbot-title">Legal Aid Bot</div>
-              <div class="chatbot-sub">AI legal guidance · Pakistan</div>
+      <div class="legal-panel glide-bottom" role="region" aria-labelledby="legal-panel">
+        <div class="legal-panel-inner">
+          <!-- LEFT: chatbot preview -->
+          <div class="panel-left">
+            <div class="chatbot-preview" aria-label="Legal Aid Chatbot preview">
+              <div class="chatbot-header" aria-hidden="true">
+                <div class="chatbot-avatar">🤖</div>
+                <div class="chatbot-header-text">
+                  <div class="chatbot-title">Legal Aid Bot</div>
+                  <div class="chatbot-sub">AI legal guidance · Pakistan</div>
+                </div>
+              </div>
+
+              <div class="chatbot-window" role="region" aria-label="Chat preview">
+                <div class="chatbot-messages" aria-hidden="true">
+                  <div class="chatbot-message bot"><div class="msg">Hello — I’m Unmask'd Legal Aid Bot. How can I help with online abuse?</div></div>
+                  <div class="chatbot-message user"><div class="msg">My ex is sharing photos without consent. What can I do?</div></div>
+                  <div class="chatbot-message bot"><div class="msg">You can collect screenshots and file a complaint under PECA — we also have reporting templates to help.</div></div>
+                </div>
+              </div>
+
+              <a class="chatbot-cta hero-btn-neon" href="https://zehrahminall.pythonanywhere.com/" target="_blank" rel="noopener noreferrer">Go to Chatbot</a>
             </div>
           </div>
 
-          <div class="chatbot-window" role="region" aria-label="Chat preview">
-            <div class="chatbot-messages" aria-hidden="true">
-              <div class="chatbot-message bot"><div class="msg">Hello — I’m Unmask'd Legal Aid Bot. How can I help with online abuse?</div></div>
-              <div class="chatbot-message user"><div class="msg">My ex is sharing photos without consent. What can I do?</div></div>
-              <div class="chatbot-message bot"><div class="msg">You can collect screenshots and file a complaint under PECA — we also have reporting templates to help.</div></div>
+          <!-- RIGHT: stacked cards -->
+          <div class="panel-right" role="group" aria-label="Quick actions and helplines">
+            <a class="panel-card panel-know-rights" href="https://complaint.fia.gov.pk/" target="_blank" rel="noopener noreferrer">
+              <h4>⚖️ Know Your Rights</h4>
+              <p>Understand PECA and cyber laws in Pakistan using our AI chatbot - first of its kind in Pakistan.</p>
+            </a>
+
+            <div class="panel-card panel-helplines">
+              <h4>📞 Emergency Helplines</h4>
+              <p>Tap any number to call immediately from a mobile device:</p>
+              <ul class="helpline-list">
+                <li>FIA Cybercrime: <a href="tel:+92519211344">+92-51-9211344</a></li>
+                <li>DRF Helpline (toll-free): <a href="tel:080039393">0800-39393</a></li>
+                <li>Cyber Police (Karachi): <a href="tel:+922199260045">+92-21-99260045</a></li>
+              </ul>
+              <a class="hero-btn-neon helpline-cta" href="tel:+92519211344">Emergency Helpline</a>
+            </div>
+
+            <div class="panel-card panel-panic">
+              <button id="panicExitBtn" class="panic-btn">🚪 Panic Exit</button>
+              <p class="panic-note">Instantly close this page with one click.</p>
             </div>
           </div>
-
-          <a class="chatbot-cta hero-btn-neon" href="https://zehrahminall.pythonanywhere.com/" target="_blank" rel="noopener noreferrer">Go to Chatbot</a>
         </div>
       </div>
+    </section>
 
-      <!-- RIGHT: stacked cards -->
-      <div class="panel-right" role="group" aria-label="Quick actions and helplines">
-        <a class="panel-card panel-know-rights" href="https://complaint.fia.gov.pk/" target="_blank" rel="noopener noreferrer">
-          <h4>⚖️ Know Your Rights</h4>
-          <p>Click this link to be directed to the FIA Cybercrime Portal. Use our AI Chatbot for any questions regarding cybercrime.</p>
-        </a>
-
-        <div class="panel-card panel-helplines">
-          <h4>📞 Emergency Helplines</h4>
-          <p>Tap any number to call immediately from a mobile device:</p>
-          <ul class="helpline-list">
-            <li>FIA Cybercrime: <a href="tel:+92519211344">+92-51-9211344</a></li>
-            <li>DRF Helpline (toll-free): <a href="tel:080039393">0800-39393</a></li>
-            <li>Cyber Police (Karachi): <a href="tel:+922199260045">+92-21-99260045</a></li>
-          </ul>
-          <a class="hero-btn-neon helpline-cta" href="tel:+92519211344">Emergency Helpline</a>
-        </div>
-
-        <div class="panel-card panel-panic">
-          <button id="panicExitBtn" class="panic-btn">🚪 Panic Exit</button>
-          <p class="panic-note">Instantly close this page with one click.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
     <!-- Rollout -->
     <section id="rollout">
       <h1 class="main-heading glide-bottom">National Rollout</h1>
       <div class="hero-intro-wide glide-bottom">Unmask'd is scaling to schools and colleges nationwide.</div>
       <div class="impact-stats">
         <div class="stat-block">
-  <h2 class="glide-bottom"><span class="count-up" data-target="22000">0</span>+</h2>
-  <p>Youth reached</p>
-</div>
-
-<div class="stat-block">
-  <h2 class="glide-bottom"><span class="count-up" data-target="15">0</span>+</h2>
-  <p>Schools onboarded</p>
-</div>
-
-<div class="stat-block">
-  <h2 class="glide-bottom"><span class="count-up" data-target="98">0</span>%</h2>
-  <p>Felt more confident online</p>
-</div>
-
+          <h2 class="glide-bottom"><span class="count-up" data-target="22000">0</span>+</h2>
+          <p>Youth reached</p>
+        </div>
+        <div class="stat-block">
+          <h2 class="glide-bottom"><span class="count-up" data-target="15">0</span>+</h2>
+          <p>Schools onboarded</p>
+        </div>
+        <div class="stat-block">
+          <h2 class="glide-bottom"><span class="count-up" data-target="98">0</span>%</h2>
+          <p>Felt more confident online</p>
+        </div>
       </div>
       <a href="Unmask%27d%20Toolkit.pdf" download="Unmask'd Toolkit.pdf" class="hero-btn-neon glide-bottom">Download School Toolkit PDF</a>
       <div class="testimonial glide-bottom">“Unmask'd helped my class understand real-world online dangers. It’s not boring — it’s empowering.”</div>
@@ -322,166 +314,80 @@
     <section id="stories">
       <h1 class="main-heading glide-bottom">Unmask'd Stories</h1>
       <div class="hero-intro-wide glide-bottom">Through photos and captions, we document silence, shame, and survival.</div>
-
-      <!-- Gallery grid - order follows the images & captions provided (six items) -->
       <div class="story-gallery glide-bottom" aria-label="Unmask'd Stories gallery">
         <div class="gallery-grid" role="list">
-          <!-- 1 -->
           <div class="gallery-item" role="listitem">
             <img class="gallery-thumb" src="images/affected.jpeg" alt="Her screenshots became her scars" data-index="0" />
-            <div class="gallery-caption">
-              She told us, “They didn’t touch me — they typed me into fear.”
-              Her screenshots became her scars, proof of what invisible violence feels like.
-              But when we spoke of reporting, her eyes steadied — courage re-entered the frame.
-              She’s not just a victim of a message; she’s a voice reclaiming her right to exist online.
-            </div>
+            <div class="gallery-caption">She told us, “They didn’t touch me — they typed me into fear.” Her screenshots became her scars, proof of what invisible violence feels like. But when we spoke of reporting, her eyes steadied — courage re-entered the frame. She’s not just a victim of a message; she’s a voice reclaiming her right to exist online.</div>
           </div>
-
-          <!-- 2 (space in filename URL-encoded) -->
           <div class="gallery-item" role="listitem">
             <img class="gallery-thumb" src="images/candy%20wrapper.jpeg" alt="Photographed wrapped in plastic to show suffocation of online hate" data-index="1" />
-            <div class="gallery-caption">
-              Online hate feels like suffocation — silent, sticky, unseen.
-              We photographed her wrapped in plastic, like the inboxes that smother without a hand.
-              When she learned that Pakistan’s cybercrime laws could breathe justice, she inhaled again.
-              Awareness became her oxygen; her story now saves others from silence.
-            </div>
+            <div class="gallery-caption">Online hate feels like suffocation — silent, sticky, unseen. We photographed her wrapped in plastic, like the inboxes that smother without a hand. When she learned that Pakistan’s cybercrime laws could breathe justice, she inhaled again. Awareness became her oxygen; her story now saves others from silence.</div>
           </div>
-
-          <!-- 3 -->
           <div class="gallery-item" role="listitem">
             <img class="gallery-thumb" src="images/dolls.jpeg" alt="She felt like a manufactured doll" data-index="2" />
-            <div class="gallery-caption">
-              “They told me to look perfect online — like plastic,” she whispered.
-              But every filtered photo chipped away at something human.
-              In our interviews, she said she felt like a doll factory — manufactured, judged, discarded.
-              Now she mentors girls on body-image and consent; imperfection is her rebellion.
-            </div>
+            <div class="gallery-caption">“They told me to look perfect online — like plastic,” she whispered. But every filtered photo chipped away at something human. In our interviews, she said she felt like a doll factory — manufactured, judged, discarded. Now she mentors girls on body-image and consent; imperfection is her rebellion.</div>
           </div>
-
-          <!-- 4 -->
           <div class="gallery-item" role="listitem">
             <img class="gallery-thumb" src="images/during.jpeg" alt="This is how society edits women" data-index="3" />
-            <div class="gallery-caption">
-              This is how society edits women — not with Photoshop, but with pressure.
-              Every comment told her who to be, until she didn’t recognize herself.
-              We asked her to sit still for this photo, and she said, “This is how I’ve lived my life — still.”
-              Now she teaches digital literacy, reminding girls that beauty needs no algorithm.
-            </div>
+            <div class="gallery-caption">This is how society edits women — not with Photoshop, but with pressure. Every comment told her who to be, until she didn’t recognize herself. We asked her to sit still for this photo, and she said, “This is how I’ve lived my life — still.” Now she teaches digital literacy, reminding girls that beauty needs no algorithm.</div>
           </div>
-
-          <!-- 5 (space in filename URL-encoded) -->
           <div class="gallery-item" role="listitem">
             <img class="gallery-thumb" src="images/affected%202.jpeg" alt="She was told to delete her account to feel safe" data-index="4" />
-            <div class="gallery-caption">
-              She was told to delete her account to feel safe — as if silence was safety.
-              When we met her, she hadn’t spoken in days; her anxiety was louder than any threat.
-              Through counseling and awareness sessions, she found strength in collective healing.
-              Now, she leads workshops titled “Unmute Yourself.”
-            </div>
+            <div class="gallery-caption">She was told to delete her account to feel safe — as if silence was safety. When we met her, she hadn’t spoken in days; her anxiety was louder than any threat. Through counseling and awareness sessions, she found strength in collective healing. Now, she leads workshops titled “Unmute Yourself.”</div>
           </div>
-
-          <!-- 6 -->
           <div class="gallery-item" role="listitem">
             <img class="gallery-thumb" src="images/feminist.jpeg" alt="She now writes op-eds on online misogyny" data-index="5" />
-            <div class="gallery-caption">
-              Once they called her “too loud” for speaking, “too bold” for breathing freely.
-              Now she writes op-eds on online misogyny — unapologetic, unfiltered.
-              The same internet that tried to shame her now amplifies her truth.
-              Our camera didn’t just capture her — it captured evolution.
-            </div>
+            <div class="gallery-caption">Once they called her “too loud” for speaking, “too bold” for breathing freely. Now she writes op-eds on online misogyny — unapologetic, unfiltered. The same internet that tried to shame her now amplifies her truth. Our camera didn’t just capture her — it captured evolution.</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Insights -->
+    <!-- Insights and Join (include partner marquee below join button) -->
     <section id="insights">
       <h1 class="main-heading glide-bottom">Insights & Evidence</h1>
       <div class="hero-intro-wide glide-bottom">Research, reporting, and infographics to help you understand digital abuse.</div>
-
       <div class="tool-card-grid four">
-        <div class="tool-card">
-          <h3>2025 Research Report</h3>
-          <p>What we learned from 100+ teen interviews.</p>
-          <a href="Unmask%27d%20Research.pdf" download="Unmask'd Research.pdf" class="download-btn">Download PDF</a>
-        </div>
-
-        <div class="tool-card">
-          <h3>PECA Explained</h3>
-          <p>Understand your legal rights in plain Urdu/English.</p>
-          <a href="https://digitalrightsfoundation.pk/wp-content/uploads/2025/01/The-Prevention-of-Electronic-Crimes-Amendment-Act-2025-DRF-Analysis-and-Recommendations.pdf?utm_source=chatgpt.com"
-             target="_blank"
-             rel="noopener noreferrer"
-             class="download-btn"
-             aria-label="Open DRF PECA analysis in a new tab">
-            Read the DRF PECA analysis (PDF)
-          </a>
-        </div>
-
-        <div class="tool-card">
-          <h3>Infographic Series</h3>
-          <p>Visual breakdowns of digital abuse trends.</p>
-          <a href="infographics.html" class="download-btn" aria-label="Open Infographic Series">View Infographics</a>
-        </div>
+        <div class="tool-card"><h3>2025 Research Report</h3><p>What we learned from 100+ teen interviews.</p><a href="Unmask%27d%20Research.pdf" download="Unmask'd Research.pdf" class="download-btn">Download PDF</a></div>
+        <div class="tool-card"><h3>PECA Explained</h3><p>Understand your legal rights in plain Urdu/English.</p><a href="https://digitalrightsfoundation.pk/wp-content/uploads/2025/01/The-Prevention-of-Electronic-Crimes-Amendment-Act-2025-DRF-Analysis-and-Recommendations.pdf?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer" class="download-btn">Read the DRF PECA analysis (PDF)</a></div>
+        <div class="tool-card"><h3>Infographic Series</h3><p>Visual breakdowns of digital abuse trends.</p><a href="infographics.html" class="download-btn">View Infographics</a></div>
       </div>
     </section>
 
-    <!-- Join -->
     <section id="join">
       <h1 class="main-heading glide-bottom">Get Involved</h1>
       <div class="hero-intro-wide glide-bottom">Become part of our community and help us make a difference in the fight for justice.</div>
       <div class="tool-card-grid triangle">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeHVnkwS9bU1yaFkNqJnKTlHVuwZWlHzoc5NkxWtFYgAw2k7A/viewform?usp=preview"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="tool-card-link"
-           aria-label="Start an Unmask'd Club — open sign-up form">
-          <h3>🏫 Start an Unmask'd Club</h3>
-          <p>Bring Unmask'd to your school or uni.</p>
-        </a>
-
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeZwZD31Wnuz2pZQnbVSZn41lEJVFe0YtgJaivRZqj8x1_q2A/viewform?usp=publish-editor"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="tool-card-link"
-           aria-label="Become an Ambassador — open sign-up form">
-          <h3>🧠 Become an Ambassador</h3>
-          <p>Train to represent Unmask'd in your city.</p>
-        </a>
-
-        <!-- Donate button: opens modal -->
-        <a href="#" id="donateBtn" class="tool-card-link" role="button" aria-haspopup="dialog" aria-controls="donateModal">
-          <h3>🤝 Collaborate or Donate</h3>
-          <p>Partner with us to scale impact.</p>
-        </a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeHVnkwS9bU1yaFkNqJnKTlHVuwZWlHzoc5NkxWtFYgAw2k7A/viewform?usp=preview" target="_blank" rel="noopener noreferrer" class="tool-card-link" aria-label="Start an Unmask'd Club"><h3>🏫 Start an Unmask'd Club</h3><p>Bring Unmask'd to your school or uni.</p></a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeZwZD31Wnuz2pZQnbVSZn41lEJVFe0YtgJaivRZqj8x1_q2A/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="tool-card-link" aria-label="Become an Ambassador"><h3>🧠 Become an Ambassador</h3><p>Train to represent Unmask'd in your city.</p></a>
+        <a href="#" id="donateBtn" class="tool-card-link" role="button" aria-haspopup="dialog" aria-controls="donateModal"><h3>🤝 Collaborate or Donate</h3><p>Partner with us to scale impact.</p></a>
       </div>
 
       <a href="#contact" class="hero-btn-neon glide-bottom">Join the Movement</a>
-      <!-- Insert this block directly below the "Join the Movement" anchor inside the #join section -->
-<div class="partner-marquee-wrap glide-bottom" aria-label="Partners we've worked with" role="region">
-  <div class="partner-marquee" role="list" aria-hidden="false">
-    <div class="marquee-track" aria-hidden="true">
-      <!-- first sequence -->
-      <div class="marquee-item" role="listitem"><img src="images/unicef.jpeg" alt="UNICEF" loading="lazy"></div>
-      <div class="marquee-item" role="listitem"><img src="images/typ.png" alt="TYP" loading="lazy"></div>
-      <div class="marquee-item" role="listitem"><img src="images/raahe raham logo.png" alt="Raahe Raham" loading="lazy"></div>
-      <div class="marquee-item" role="listitem"><img src="images/kwk.png" alt="KWK" loading="lazy"></div>
-      <div class="marquee-item" role="listitem"><img src="images/gwc.png" alt="GWC" loading="lazy"></div>
-      <div class="marquee-item" role="listitem"><img src="images/cyber peace.jpg" alt="Cyber Peace" loading="lazy"></div>
 
-      <!-- duplicate sequence for seamless looping -->
-      <div class="marquee-item" role="listitem"><img src="images/unicef.jpeg" alt="UNICEF" loading="lazy"></div>
-      <div class="marquee-item" role="listitem"><img src="images/typ.png" alt="TYP" loading="lazy"></div>
-      <div class="marquee-item" role="listitem"><img src="images/raahe raham logo.png" alt="Raahe Raham" loading="lazy"></div>
-      <div class="marquee-item" role="listitem"><img src="images/kwk.png" alt="KWK" loading="lazy"></div>
-      <div class="marquee-item" role="listitem"><img src="images/gwc.png" alt="GWC" loading="lazy"></div>
-      <div class="marquee-item" role="listitem"><img src="images/cyber peace.jpg" alt="Cyber Peace" loading="lazy"></div>
-    </div>
-  </div>
+      <!-- Partner marquee inserted below Join the Movement -->
+      <div class="partner-marquee-wrap glide-bottom" aria-label="Partners we've worked with" role="region">
+        <div class="partner-marquee" role="list">
+          <div class="marquee-track" aria-hidden="true">
+            <div class="marquee-item" role="listitem"><img src="images/unicef.jpeg" alt="UNICEF" loading="lazy"></div>
+            <div class="marquee-item" role="listitem"><img src="images/typ.png" alt="TYP" loading="lazy"></div>
+            <div class="marquee-item" role="listitem"><img src="images/raahe%20raham%20logo.png" alt="Raahe Raham" loading="lazy"></div>
+            <div class="marquee-item" role="listitem"><img src="images/kwk.png" alt="KWK" loading="lazy"></div>
+            <div class="marquee-item" role="listitem"><img src="images/gwc.png" alt="GWC" loading="lazy"></div>
+            <div class="marquee-item" role="listitem"><img src="images/cyber%20peace.jpg" alt="Cyber Peace" loading="lazy"></div>
 
-  <div class="marquee-caption" aria-hidden="true">Partners & collaborators</div>
-</div>
+            <!-- duplicated for seamless loop -->
+            <div class="marquee-item" role="listitem"><img src="images/unicef.jpeg" alt="UNICEF" loading="lazy"></div>
+            <div class="marquee-item" role="listitem"><img src="images/typ.png" alt="TYP" loading="lazy"></div>
+            <div class="marquee-item" role="listitem"><img src="images/raahe%20raham%20logo.png" alt="Raahe Raham" loading="lazy"></div>
+            <div class="marquee-item" role="listitem"><img src="images/kwk.png" alt="KWK" loading="lazy"></div>
+            <div class="marquee-item" role="listitem"><img src="images/gwc.png" alt="GWC" loading="lazy"></div>
+            <div class="marquee-item" role="listitem"><img src="images/cyber%20peace.jpg" alt="Cyber Peace" loading="lazy"></div>
+          </div>
+        </div>
+        <div class="marquee-caption" aria-hidden="true">Partners & collaborators</div>
+      </div>
     </section>
 
     <!-- Contact -->
@@ -501,11 +407,7 @@
         <div class="contact-info">
           <div><strong>Email:</strong> <a href="mailto:info@unmaskd.pk">info@unmaskd.pk</a></div>
           <div><strong>Helpline:</strong> <a href="tel:+92300122869">+92 300 122869</a></div>
-          <div><strong>Social:</strong>
-            <a href="https://facebook.com/unmaskd.pk" target="_blank">Facebook</a> |
-            <a href="https://instagram.com/unmaskd.pk" target="_blank">Instagram</a> |
-            <a href="https://linkedin.com/company/unmaskd" target="_blank">LinkedIn</a>
-          </div>
+          <div><strong>Social:</strong> <a href="https://facebook.com/unmaskd.pk" target="_blank">Facebook</a> | <a href="https://instagram.com/unmaskd.pk" target="_blank">Instagram</a> | <a href="https://linkedin.com/company/unmaskd" target="_blank">LinkedIn</a></div>
         </div>
       </div>
     </section>
@@ -515,18 +417,9 @@
       <h1 class="main-heading glide-bottom">FAQs</h1>
       <div class="hero-intro-wide glide-bottom">Find answers to the most common questions about Unmask'd and digital rights.</div>
       <div class="faqs-list">
-        <div class="faq-item">
-          <button class="faq-question">What is Unmask'd?</button>
-          <div class="faq-answer">Unmask'd is Pakistan’s first youth-powered, gender-sensitive legal aid platform for digital rights and online safety.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question">How do I get legal help?</button>
-          <div class="faq-answer">Use our  or connect with a verified expert through the Digital Defense Hub.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question">Is Unmask'd free?</button>
-          <div class="faq-answer">Yes, all our tools and resources are free for youth and vulnerable communities.</div>
-        </div>
+        <div class="faq-item"><button class="faq-question">What is Unmask'd?</button><div class="faq-answer">Unmask'd is Pakistan’s first youth-powered, gender-sensitive legal aid platform for digital rights and online safety.</div></div>
+        <div class="faq-item"><button class="faq-question">How do I get legal help?</button><div class="faq-answer">Use our Legal Aid Bot or connect with a verified expert through the Digital Defense Hub.</div></div>
+        <div class="faq-item"><button class="faq-question">Is Unmask'd free?</button><div class="faq-answer">Yes, all our tools and resources are free for youth and vulnerable communities.</div></div>
       </div>
     </section>
 
@@ -537,16 +430,13 @@
     <div class="footer-main">
       <div class="footer-col left">
         <img src="images/new logo.png" alt="unmask'd Logo" class="footer-logo">
-        <p class="footer-about">
-          Unmask'd is Pakistan’s first gender-sensitive, youth-powered legal aid platform. We empower the next generation to reclaim digital safety, with tech, law, and empathy.
-        </p>
+        <p class="footer-about">Unmask'd is Pakistan’s first gender-sensitive, youth-powered legal aid platform. We empower the next generation to reclaim digital safety, with tech, law, and empathy.</p>
         <div class="footer-socials">
           <a href="https://facebook.com/unmaskd.pk" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
           <a href="https://linkedin.com/company/unmaskd" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
           <a href="https://instagram.com/unmaskd.pk" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
         </div>
       </div>
-
       <div class="footer-col right">
         <div class="footer-links-title">Quick Links</div>
         <ul class="footer-links">
@@ -559,38 +449,29 @@
         </ul>
       </div>
     </div>
-
     <div class="footer-bottom-marquee">
-      <marquee behavior="scroll" direction="left" scrollamount="4">
-        Copyright © 2025 Unmask'd — Pakistan’s First Gender-Sensitive, Youth Legal Aid Platform
-      </marquee>
+      <marquee behavior="scroll" direction="left" scrollamount="4">Copyright © 2025 Unmask'd — Pakistan’s First Gender-Sensitive, Youth Legal Aid Platform</marquee>
     </div>
   </footer>
 
-  <!-- Donation modal (placed at document end) -->
+  <!-- Donation modal -->
   <div id="donateModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="donateTitle" aria-hidden="true">
     <div class="modal-overlay" data-close-modal></div>
     <div class="modal-content" role="document" tabindex="-1">
       <button type="button" class="modal-close" aria-label="Close donation dialog" data-close-modal>&times;</button>
       <div class="modal-body">
-        <!-- Recommended filename: images/qr-code.png (no spaces) -->
         <img src="images/qr code.png" alt="Donation QR code" class="donation-qr" onerror="this.style.opacity=.5;console.warn('QR image load failed')">
         <h2 id="donateTitle">💖 Donate to Unmask’d</h2>
-        <p class="donate-text">
-          Scan this QR code with JazzCash/EasyPaisa app<br>
-          <strong>OR send directly to:</strong> +92 344 8444413
-        </p>
+        <p class="donate-text">Scan this QR code with JazzCash/EasyPaisa app<br><strong>OR send directly to:</strong> +92 344 8444413</p>
         <p class="donate-note">(This is a placeholder — actual QR coming soon!)</p>
       </div>
     </div>
   </div>
 
-  <!-- Gallery lightbox modal -->
+  <!-- Gallery modal -->
   <div id="galleryModal" class="gallery-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Image viewer">
     <div class="gallery-modal-content" role="document">
-      <div class="gallery-modal-media" id="galleryMedia" tabindex="0">
-        <img id="galleryImage" src="" alt="">
-      </div>
+      <div class="gallery-modal-media" id="galleryMedia" tabindex="0"><img id="galleryImage" src="" alt=""></div>
       <div class="gallery-modal-footer">
         <div class="gallery-modal-caption" id="galleryCaption">Caption</div>
         <div class="gallery-modal-controls" aria-hidden="false">
@@ -602,7 +483,13 @@
     </div>
   </div>
 
-  <!-- Scripts: slideshow, scroll reveal, modal, panic, FAQ, contact, gallery -->
- <script src="script.js"></script>
+  <!-- Scripts -->
+  <script src="script.js?v=20251110-1"></script>
+
+  <script>
+    // Debug helper to confirm only one chatbot preview exists and override applied
+    console.log('Index loaded — legal panel present?', !!document.querySelector('#legal .legal-panel'));
+    console.log('Chatbot preview count:', document.querySelectorAll('.chatbot-preview').length);
+  </script>
 </body>
 </html>
