@@ -26,6 +26,7 @@
     /* -------------------------
        SCROLL REVEAL (IntersectionObserver)
        ------------------------- */
+    
     safeRun('initScrollReveal', function initScrollReveal() {
       // Remove any global immediate reveal previously added (defensive)
       try {
@@ -46,6 +47,28 @@
                 // Use small incremental delays
                 el.style.animationDelay = `${i * 100}ms`;
               });
+// Count-up animation for stat numbers when Rollout section becomes visible
+if (section.id === 'rollout') {
+  const counters = section.querySelectorAll('.count-up');
+  counters.forEach(counter => {
+    const target = +counter.dataset.target;
+    let current = 0;
+    const duration = 900; // total animation in ms (super fast)
+    const increment = target / (duration / 16); // ~60fps
+
+    const update = () => {
+      current += increment;
+      if (current < target) {
+        counter.textContent = Math.floor(current);
+        requestAnimationFrame(update);
+      } else {
+        counter.textContent = target;
+      }
+    };
+
+    requestAnimationFrame(update);
+  });
+}
 
               obs.unobserve(section);
             }
