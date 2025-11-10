@@ -159,24 +159,49 @@
     <section id="join">
       <h1 class="main-heading glide-bottom">Get Involved</h1>
       <div class="hero-intro-wide glide-bottom">Become part of our community and help us make a difference in the fight for justice.</div>
-      <div class="tool-card-grid triangle">
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSeHVnkwS9bU1yaFkNqJnKTlHVuwZWlHzoc5NkxWtFYgAw2k7A/viewform?usp=preview"
-   target="_blank"
-   rel="noopener noreferrer"
-   class="tool-card-link"
-   aria-label="Start an Unmask'd Club — open sign-up form">
-  <h3>🏫 Start an Unmask'd Club</h3>
-  <p>Bring Unmask'd to your school or uni.</p>
-</a>
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSeZwZD31Wnuz2pZQnbVSZn41lEJVFe0YtgJaivRZqj8x1_q2A/viewform?usp=publish-editor"
-   target="_blank"
-   rel="noopener noreferrer"
-   class="tool-card-link"
-   aria-label="Become an Ambassador — open sign-up form">
-  <h3>🧠 Become an Ambassador</h3>
-  <p>Train to represent Unmask'd in your city.</p>
-</a>
-        <a href="#" class="tool-card-link"><h3>🤝 Collaborate or Donate</h3><p>Partner with us to scale impact.</p></a>
+<!-- Join section: tool-card-grid (place this where your Join grid lives) -->
+<div class="tool-card-grid triangle">
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeHVnkwS9bU1yaFkNqJnKTlHVuwZWlHzoc5NkxWtFYgAw2k7A/viewform?usp=preview"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="tool-card-link"
+     aria-label="Start an Unmask'd Club — open sign-up form">
+    <h3>🏫 Start an Unmask'd Club</h3>
+    <p>Bring Unmask'd to your school or uni.</p>
+  </a>
+
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeZwZD31Wnuz2pZQnbVSZn41lEJVFe0YtgJaivRZqj8x1_q2A/viewform?usp=publish-editor"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="tool-card-link"
+     aria-label="Become an Ambassador — open sign-up form">
+    <h3>🧠 Become an Ambassador</h3>
+    <p>Train to represent Unmask'd in your city.</p>
+  </a>
+
+  <!-- Donate button (opens modal) -->
+  <a href="#" id="donateBtn" class="tool-card-link" aria-haspopup="dialog" aria-controls="donateModal" role="button">
+    <h3>🤝 Collaborate or Donate</h3>
+    <p>Partner with us to scale impact.</p>
+  </a>
+</div>
+
+<!-- Add this modal markup just before the closing </body> tag -->
+<div id="donateModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="donateTitle" aria-hidden="true">
+  <div class="modal-overlay" data-close-modal></div>
+  <div class="modal-content" role="document">
+    <button class="modal-close" aria-label="Close donation dialog" data-close-modal>&times;</button>
+    <div class="modal-body">
+      <img src="images/qr%20code.png" alt="Donation QR code" class="donation-qr">
+      <h2 id="donateTitle">💖 Donate to Unmask’d</h2>
+      <p class="donate-text">
+        Scan this QR code with JazzCash/EasyPaisa app<br>
+        <strong>OR send directly to:</strong> +92 344 8444413
+      </p>
+      <p class="donate-note">(This is a placeholder — actual QR coming soon!)</p>
+    </div>
+  </div>
+</div>
       </div>
       <a href="#contact" class="hero-btn-neon glide-bottom">Join the Movement</a>
     </section>
