@@ -1952,3 +1952,91 @@ header::before {
   */
   /* content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 12px; */
 }
+/* ============================================================
+   Append-only fixes — paste at the END of style.css
+   - Keeps sections visible (so headings don't vanish)
+   - Provides gradient-fallback for headings
+   - Triggers glide animations when .in-view is added
+   ============================================================ */
+
+/* 1) Make sections visible by default (override earlier rules) */
+section {
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: auto !important;
+  transition: none !important;
+}
+
+/* 2) Ensure headings have a visible fallback color (override any prior transparent fills) */
+.title-gradient,
+header .title-gradient,
+.hero-title-glow,
+h1,
+.main-heading {
+  color: var(--neon-mint) !important;           /* visible fallback color */
+  background: none !important;
+  -webkit-text-fill-color: initial !important;  /* undo transparent fill if previously set */
+  background-clip: initial !important;
+}
+
+/* 3) Apply gradient clipping only when supported (keeps fallback intact otherwise) */
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .title-gradient,
+  header .title-gradient,
+  .hero-title-glow,
+  h1,
+  .main-heading {
+    background: linear-gradient(90deg, #ffe066, #ff4d6d, #00ffe0, #ffe066) !important;
+    background-size: 300% 300% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    color: transparent !important;
+    animation: titleGradientMove 6s ease-in-out infinite !important;
+  }
+}
+
+/* 4) Animate only .glide-bottom children; keep them hidden until JS adds .in-view */
+.glide-bottom {
+  opacity: 0 !important;
+  transform: translateY(60px) !important;
+  will-change: transform, opacity !important;
+  /* No default animation here — JS should add .in-view to trigger animation */
+}
+
+/* When .in-view is added (by your reveal JS), run the glide animation.
+   Your existing JS may set el.style.animationDelay before adding .in-view. */
+.glide-bottom.in-view {
+  animation: glideBottom 1s cubic-bezier(.45,.05,.55,.95) forwards !important;
+}
+
+/* 5) Re-declare keyframes safely at the end so the animation exists */
+@keyframes glideBottom {
+  0% { opacity: 0; transform: translateY(60px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 6) Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .glide-bottom,
+  .glide-bottom.in-view,
+  .title-gradient,
+  .main-heading,
+  h1 {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    -webkit-animation: none !important;
+  }
+}
+
+/* 7) Defensive re-override if preceding CSS forcibly set -webkit-text-fill-color:transparent */
+.title-gradient,
+header .title-gradient,
+.hero-title-glow,
+h1,
+.main-heading {
+  -webkit-text-fill-color: initial !important;
+  color: var(--neon-mint) !important;
+}
