@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Infographic Series — Unmask'd</title>
+
+  <!-- Fonts & Chart.js -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Open+Sans:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    :root{
+      --bg:#0f0f10;
+      --card:#181c1e;
+      --muted:#cfeee9;
+      --accent-mint:#00ffe0;
+      --accent-pink:#ff4d6d;
+      --accent-yellow:#ffe066;
+      --accent-purple:#9b6bff;
+      --glass: rgba(255,255,255,0.03);
+      --max-width:1100px;
+      --radius:14px;
+      --gap:20px;
+      font-family: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: #e6f7f4;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      background: linear-gradient(180deg, #070707 0%, #0f0f10 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .page {
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 28px;
+      box-sizing: border-box;
+    }
+
+    header.site-header {
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-bottom:18px;
+    }
+    .site-title {
+      font-family: 'Playfair Display', serif;
+      font-weight:700;
+      font-size:1.9rem;
+      color:linear-gradient(90deg,#ffe066,#ff4d6d,#00ffe0);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .site-desc {
+      color:var(--muted);
+      font-size:1rem;
+      margin-top:6px;
+    }
+
+    .topbar {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:22px;
+      flex-wrap:wrap;
+    }
+
+    .btn {
+      display:inline-block;
+      background: linear-gradient(120deg, var(--accent-mint) 0%, var(--accent-pink) 100%);
+      color:#101218;
+      font-weight:900;
+      padding:10px 16px;
+      border-radius:999px;
+      text-decoration:none;
+      box-shadow:0 8px 30px rgba(0,255,224,0.06);
+    }
+
+    .intro {
+      margin-bottom:20px;
+      color:var(--muted);
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+      margin-top:12px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid var(--glass);
+      padding:18px;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .card h3 {
+      margin:0 0 8px 0;
+      color:var(--accent-mint);
+      font-family: 'Montserrat', sans-serif;
+      font-size:1.05rem;
+      text-align:center;
+    }
+
+    canvas {
+      width:100% !important;
+      max-width: 320px;
+      height: 260px !important;
+    }
+
+    .legend {
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      font-size:0.92rem;
+      color:var(--muted);
+    }
+    .legend span {
+      display:flex;
+      gap:8px;
+      align-items:center;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+    }
+    .dot {
+      width:12px;
+      height:12px;
+      border-radius:3px;
+      display:inline-block;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      canvas { height:220px !important; }
+    }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+      .page { padding:16px; }
+      canvas { height:200px !important; max-width: 420px; }
+    }
+
+    footer.site-footer {
+      margin-top:22px;
+      color:var(--muted);
+      text-align:center;
+      font-size:0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="page" role="main">
+    <header class="site-header">
+      <div>
+        <div class="site-title">Infographic Series</div>
+        <div class="site-desc">Visual breakdowns of digital abuse trends.</div>
+      </div>
+      <div style="margin-left:auto;">
+        <a href="index.html" class="btn" aria-label="Back to Home">Back to Home</a>
+      </div>
+    </header>
+
+    <p class="intro">Below are three quick visual summaries. Hover (or tap) any slice to view a tooltip with percentage breakdowns. Charts animate on page load.</p>
+
+    <section class="grid" aria-label="Infographic charts">
+      <article class="card" aria-labelledby="chart1-title">
+        <h3 id="chart1-title">Types of Cyber Abuse</h3>
+        <canvas id="chartTypes" aria-label="Pie chart showing types of cyber abuse"></canvas>
+        <div class="legend" id="legend-types"></div>
+      </article>
+
+      <article class="card" aria-labelledby="chart2-title">
+        <h3 id="chart2-title">Age Group Affected</h3>
+        <canvas id="chartAges" aria-label="Pie chart showing age groups affected"></canvas>
+        <div class="legend" id="legend-ages"></div>
+      </article>
+
+      <article class="card" aria-labelledby="chart3-title">
+        <h3 id="chart3-title">Platform Distribution</h3>
+        <canvas id="chartPlatforms" aria-label="Pie chart showing platform distribution"></canvas>
+        <div class="legend" id="legend-platforms"></div>
+      </article>
+    </section>
+
+    <footer class="site-footer">
+      <small>Data shown are fictional and for illustrative purposes only.</small>
+    </footer>
+  </div>
+
+  <script>
+    // Theme colours (matching your site)
+    const COLORS = {
+      mint: '#00ffe0',
+      pink: '#ff4d6d',
+      yellow: '#ffe066',
+      purple: '#9b6bff',
+      teal: '#22d1c9',
+      deep: '#6de0ff'
+    };
+
+    // Helper: build legend HTML
+    function renderLegend(containerId, labels, colors) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+      labels.forEach((lab, i) => {
+        const span = document.createElement('span');
+        span.innerHTML = '<i class="dot" style="background:' + colors[i % colors.length] + ';"></i> ' + lab;
+        container.appendChild(span);
+      });
+    }
+
+    // Chart.js global defaults (colors, fonts)
+    Chart.defaults.font.family = "'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial";
+    Chart.defaults.color = '#e6f7f4';
+    Chart.defaults.plugins.legend.display = false;
+    Chart.defaults.plugins.tooltip.cornerRadius = 6;
+
+    // Utility: create pie chart with percentage tooltip
+    function createPie(ctx, labels, data, colors) {
+      const total = data.reduce((a,b)=>a+b,0);
+      return new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: colors,
+            borderColor: '#0b0b0b',
+            borderWidth: 2,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: {
+            duration: 900,
+            easing: 'easeOutQuart'
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const value = context.raw;
+                  const percent = total ? ((value / total) * 100) : 0;
+                  return context.label + ': ' + value + ' (' + percent.toFixed(1) + '%)';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Fake data
+    const typesLabels = ['Harassment','Scam','Phishing','Stalking'];
+    const typesData = [42, 28, 18, 12];
+    const typesColors = [COLORS.mint, COLORS.pink, COLORS.yellow, COLORS.purple];
+
+    const ageLabels = ['Teens (13-17)','Young adults (18-24)','Adults (25+)'];
+    const ageData = [38, 47, 15];
+    const ageColors = [COLORS.pink, COLORS.mint, COLORS.yellow];
+
+    const platformLabels = ['Instagram','WhatsApp','TikTok'];
+    const platformData = [54, 30, 16];
+    const platformColors = [COLORS.mint, COLORS.purple, COLORS.pink];
+
+    // Render charts on DOM ready
+    document.addEventListener('DOMContentLoaded', function(){
+      // Types chart
+      const ctxTypes = document.getElementById('chartTypes').getContext('2d');
+      createPie(ctxTypes, typesLabels, typesData, typesColors);
+      renderLegend('legend-types', typesLabels, typesColors);
+
+      // Ages chart
+      const ctxAges = document.getElementById('chartAges').getContext('2d');
+      createPie(ctxAges, ageLabels, ageData, ageColors);
+      renderLegend('legend-ages', ageLabels, ageColors);
+
+      // Platforms chart
+      const ctxPlatforms = document.getElementById('chartPlatforms').getContext('2d');
+      createPie(ctxPlatforms, platformLabels, platformData, platformColors);
+      renderLegend('legend-platforms', platformLabels, platformColors);
+    });
+  </script>
+</body>
+</html>
