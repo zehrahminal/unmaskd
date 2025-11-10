@@ -2414,3 +2414,30 @@ a.info-card,
   .chatbot-preview .chatbot-avatar { width:40px; height:40px; font-size:18px; }
   .chatbot-preview .chatbot-cta { max-width: 280px; width: 90%; }
 }
+/* Chat preview & legal column fixes — append this to the end of style.css */
+
+.chatbot-preview .chatbot-window { height: 260px; overflow: hidden; }
+.chatbot-preview .chatbot-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: stretch;
+  height: 100%;
+  padding: 0;
+}
+.chatbot-preview .msg { white-space: normal; word-break: break-word; font-size: 0.95rem; line-height: 1.35; padding: 10px 12px; }
+.chatbot-preview .chatbot-avatar {
+  width: 40px; height: 40px; border-radius: 8px;
+  display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(180deg, rgba(0,255,224,0.07), rgba(255,77,109,0.03));
+  box-shadow: 0 6px 18px rgba(0,255,224,0.06);
+}
+.info-card.know-rights, .info-card.helplines-card, .info-card.panic-card { box-sizing: border-box; }
+.chatbot-preview .chatbot-cta, .info-card .hero-btn-neon, .panic-btn { border-radius: 999px; }
+
+/* Responsive stacking */
+@media (max-width:900px) {
+  .legal-grid { flex-direction: column; align-items: center; }
+  .chatbot-preview .chatbot-window { height: 200px; }
+}
