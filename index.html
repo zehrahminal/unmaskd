@@ -109,8 +109,30 @@
         <div style="flex:1;min-width:280px;max-width:400px;background:#161616;border-radius:12px;padding:20px;box-shadow:0 0 12px #00ffe033;text-align:center;">[Chatbot Placeholder]</div>
         <div style="flex:1;min-width:280px;max-width:400px;">
           <div class="info-card"><h4 class="glide-bottom">⚖️ Know Your Rights</h4><p>Understand PECA and cyber laws in Pakistan.</p></div>
-          <div class="info-card"><h4 class="glide-bottom">📞 Emergency Helplines</h4><p>Contact FIA, DRF, cyber police quickly.</p></div>
-<!-- Replace the existing Panic Exit info-card with this -->
+<!-- Replace the existing Emergency Helplines info-card with this -->
+<div class="info-card helplines-card">
+  <h4 class="glide-bottom">📞 Emergency Helplines</h4>
+  <p>Tap any number to call immediately from a mobile device:</p>
+
+  <ul class="helpline-list">
+    <li>
+      <a href="tel:+92519211344" aria-label="Call FIA Cybercrime">FIA Cybercrime: +92-51-9211344</a>
+    </li>
+    <li>
+      <!-- Domestic toll-free -->
+      <a href="tel:080039393" aria-label="Call DRF Helpline (toll free)">DRF Helpline (toll-free): 0800-39393</a>
+      <!-- Optional international dial fallback (some phones/networks) -->
+      <small class="helpline-small"> (if calling from outside Pakistan: <a href="tel:+9280039393">+92 800 39393</a>)</small>
+    </li>
+    <li>
+      <a href="tel:+922199260045" aria-label="Call Cyber Police Karachi">Cyber Police (Karachi): +92-21-99260045</a>
+    </li>
+  </ul>
+
+  <!-- Prominent single-button CTA (optional) — set href to primary emergency number -->
+  <a href="tel:+92519211344" class="hero-btn-neon helpline-cta" aria-label="Call FIA Cybercrime now">Emergency Helpline</a>
+</div>
+          <!-- Replace the existing Panic Exit info-card with this -->
 <div class="info-card panic-card">
   <button id="panicExitBtn" class="panic-btn glide-bottom" title="Instantly exit this page">🚪 Panic Exit</button>
   <p>Instantly close this page with one click.</p>
