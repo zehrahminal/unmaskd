@@ -1576,3 +1576,98 @@ footer,
   .donation-qr { width: 160px; height: 160px; }
   .modal-content { padding: 18px; border-radius: 10px; }
 }
+/* Modal styles — add to your existing style.css (adjust colors if needed) */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none; /* toggled with JS */
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  font-family: inherit;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+/* Modal panel */
+.modal-content {
+  position: relative;
+  width: min(520px, calc(100% - 48px));
+  background: linear-gradient(180deg, #0f0f10 0%, #141414 100%);
+  border: 1px solid rgba(0, 255, 224, 0.06);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0,255,224,0.04);
+  border-radius: 12px;
+  padding: 28px;
+  color: #e6f7f4;
+  z-index: 10001;
+  transform: translateY(6px);
+}
+
+/* Close button */
+.modal-close {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  background: transparent;
+  border: none;
+  color: #cdeee9;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+}
+.modal-close:hover { color: #00ffe0; }
+
+/* Modal content layout */
+.modal-body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.donation-qr {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 6px solid rgba(0,255,224,0.06);
+  background: #0b0b0b;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
+
+#donateTitle {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.donate-text {
+  margin: 0;
+  color: #cfeee9;
+  font-size: 15px;
+}
+
+.donate-note {
+  margin: 0;
+  color: #9fbfb7;
+  font-size: 13px;
+}
+
+/* Make modal responsive */
+@media (max-width: 420px) {
+  .donation-qr { width: 160px; height: 160px; }
+  .modal-content { padding: 18px; border-radius: 10px; }
+}
