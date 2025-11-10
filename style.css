@@ -1849,3 +1849,118 @@ footer,
 }
 
 /* End of targeted fixes */
+/* -- Header: left-aligned logo with title/subtitle to the right (responsive) -- */
+/* Add/append this to the end of your style.css to override earlier header rules. */
+
+header.byteback-header,
+header.unmaskd-header {
+  /* keep container centering but make header a horizontal flex row */
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 18px;
+  padding: 22px 48px !important;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Logo pinned to the extreme left within the header */
+.header-logo {
+  height: 90px;
+  width: auto;
+  margin: 0 !important;
+  display: block;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 0 24px #00ffe066);
+  z-index: 2;
+}
+
+/* Title block sits to the right of the logo and is left-aligned */
+.header-title-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: auto;
+  text-align: left;
+  margin-left: 8px;
+  flex: 1 1 auto;
+}
+
+/* Place the title and tagline left-aligned */
+.header-title {
+  display: block;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 0;
+  font-size: 3.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-align: left;
+  width: 100%;
+  line-height: 1.1;
+}
+
+/* Keep gradient heading behavior but ensure left alignment */
+.title-gradient,
+header .title-gradient,
+.hero-title-glow,
+h1,
+.main-heading {
+  text-align: left;
+}
+
+/* Tagline left aligned too */
+.header-tagline {
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin-top: 8px;
+  color: #ffe066;
+  letter-spacing: 1px;
+  text-align: left;
+  width: 100%;
+}
+
+/* If header had border-radius or shadows that visually push center, keep them but maintain layout */
+header.byteback-header, header.unmaskd-header {
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 2px 16px #00ffe033;
+}
+
+/* NAV remains centered below the header; ensure it's visually separated */
+nav {
+  margin-top: 18px;
+}
+
+/* Responsive: on small screens stack vertically and center (original mobile behavior) */
+@media (max-width: 700px) {
+  header.byteback-header,
+  header.unmaskd-header {
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 20px 20px !important;
+  }
+  .header-logo {
+    height: 62px;
+    margin-bottom: 12px;
+  }
+  .header-title-block {
+    align-items: center;
+    text-align: center;
+    margin-left: 0;
+    width: 100%;
+  }
+  .header-title,
+  .title-gradient,
+  .main-heading {
+    text-align: center !important;
+    font-size: 1.6rem !important;
+  }
+  .header-tagline {
+    text-align: center !important;
+    font-size: 0.95rem !important;
+    margin-top: 8px;
+  }
+}
