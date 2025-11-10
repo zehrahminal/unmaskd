@@ -1964,3 +1964,52 @@ nav {
     margin-top: 8px;
   }
 }
+/* --- Append to the END of style.css --- */
+/* Center the site title "Unmask'd" exactly in the header (viewport center),
+   while keeping the logo pinned to the left. Responsive: stacks on small screens. */
+
+header.byteback-header {
+  position: relative; /* ensure children can be absolutely positioned relative to header */
+}
+
+/* Center the title block in the exact horizontal center of the header */
+.header-title-block {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); /* perfectly center horizontally & vertically inside header */
+  width: min(880px, 70%);            /* limit width to avoid overflow */
+  display: flex;
+  flex-direction: column;
+  align-items: center;               /* text centered within the centered block */
+  justify-content: center;
+  text-align: center;
+  pointer-events: auto;
+  z-index: 2;                         /* above the logo and background */
+}
+
+/* Make sure the heading and tagline are centered within this block */
+.header-title,
+.title-gradient,
+.header-tagline,
+.main-heading {
+  text-align: center !important;
+}
+
+/* If the logo overlaps the centered text on narrow screens, revert to stacked layout */
+@media (max-width: 820px) {
+  header.byteback-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 20px !important;
+  }
+  .header-title-block {
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    margin-top: 8px;
+    align-items: center !important;
+    text-align: center !important;
+  }
+}
