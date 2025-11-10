@@ -4,14 +4,22 @@
   <meta charset="UTF-8">
   <title>Contact — Unmask'd</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Prevent aggressive caching during development (helpful for testing) -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- Fonts & styles (cache-busted query param) -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900;700&family=Open+Sans:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20251110-1">
   <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
   <header>
     <span class="title-gradient">Unmask</span><span style="color: #00ffe0">'d</span>
   </header>
+
   <div class="container">
     <nav>
       <ul>
@@ -26,20 +34,23 @@
         <li><a href="faqs.html">FAQs</a></li>
       </ul>
     </nav>
+
     <h1 class="main-heading" style="margin-top:18px;">Share your story</h1>
+
     <div class="contact-wrap">
-      <form class="contact-form">
+      <form class="contact-form" id="contactForm">
         <label for="name">Your Name (Leave blank if you wish to stay anonymous)*</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="name" placeholder="Optional">
 
         <label for="email">Your Email *</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" required placeholder="you@example.com">
 
         <label for="message">Your Message *</label>
-        <textarea id="message" name="message" rows="7" required></textarea>
+        <textarea id="message" name="message" rows="7" required placeholder="Tell us what happened..."></textarea>
 
         <button type="submit">Send Message</button>
       </form>
+
       <div class="contact-info">
         <div><span style="color:var(--neon-yellow);font-weight:800;">Email:</span> <a href="mailto:hello@unmaskd.pk">hello@unmaskd.pk</a></div>
         <div><span style="color:var(--neon-yellow);font-weight:800;">Instagram:</span> <a target="_blank" href="https://instagram.com/unmaskd.pk">@unmaskd.pk</a></div>
@@ -48,8 +59,10 @@
         <div><span style="color:var(--neon-yellow);font-weight:800;">Helpline:</span> <a href="tel:+92-333-0000000">+92-333-0000000</a></div>
       </div>
     </div>
+
     <footer>© Unmask'd 2025 | Karachi, Pakistan</footer>
   </div>
+
   <footer class="unmaskd-footer">
     <div class="footer-main">
       <div class="footer-col left">
@@ -63,6 +76,7 @@
           <a href="https://instagram.com/unmaskd.pk" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
         </div>
       </div>
+
       <div class="footer-col right">
         <div class="footer-links-title">Quick Links</div>
         <ul class="footer-links">
@@ -77,6 +91,11 @@
     </div>
     <div class="footer-bottom">Copyright © 2025 Unmask'd</div>
   </footer>
-  <script src="script.js"></script>
+
+  <!-- Cache-busted script -->
+  <script src="script.js?v=20251110-1"></script>
+
+  <!-- Development test log - confirms this exact file is served -->
+  <script>console.log('contact.html (v=20251110-1) loaded');</script>
 </body>
 </html>
