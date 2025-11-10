@@ -2260,3 +2260,92 @@ a.info-card,
   }
   .panic-btn { padding: 9px 12px; font-size: 0.95rem; }
 }
+/* ===== Fix: Know Your Rights card (anchor) — append to end of style.css =====
+   Purpose: remove underlines, restore card visual, center heading & text,
+   and make the anchor behave exactly like other .info-card blocks.
+=========================================================================== */
+
+/* Highly-specific reset for anchor-based cards (preserve .info-card divs too) */
+a.info-card,
+a.info-card:link,
+a.info-card:visited,
+.info-card.know-rights,
+a.info-card.know-rights {
+  display: block !important;
+  text-decoration: none !important;      /* remove underline */
+  -webkit-text-decoration: none !important;
+  color: inherit !important;
+  background: var(--card-bg, #111) !important;
+  border: 1.5px solid var(--window-border, rgba(255,255,255,0.06)) !important;
+  padding: 18px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6) !important;
+  transition: box-shadow .18s ease, transform .12s ease !important;
+  margin: 0 0 12px 0 !important;
+  text-align: center !important;         /* center heading and paragraph */
+  vertical-align: middle !important;
+  line-height: 1.4 !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure no child element accidentally displays underline */
+a.info-card * ,
+a.info-card.know-rights * {
+  text-decoration: none !important;
+}
+
+/* Heading + body inside anchor card */
+a.info-card h4,
+a.info-card p,
+a.info-card.know-rights h4,
+a.info-card.know-rights p {
+  margin: 0 !important;
+  padding: 0 !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  text-align: center !important;
+}
+
+/* If reveal classes are present but JS didn't run, force visible (prevents invisible headings) */
+a.info-card .glide-bottom,
+a.info-card.know-rights .glide-bottom,
+.info-card .glide-bottom {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+/* Focus and hover styles (accessible & visible) */
+a.info-card:focus,
+a.info-card:active,
+a.info-card:hover,
+a.info-card.know-rights:focus,
+a.info-card.know-rights:hover {
+  text-decoration: none !important;
+  outline: none !important;
+  box-shadow: 0 12px 40px rgba(0,255,224,0.09), 0 0 18px rgba(255,77,109,0.06) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* Make sure inline anchors inside cards (if any) keep not-underlined style */
+.info-card a,
+a.info-card a {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+/* Defensive: neutralize any floating/layout rules applied to .info-card elsewhere */
+a.info-card,
+.info-card {
+  float: none !important;
+  width: auto !important;
+}
+
+/* Small-screen adjustments so the card doesn't look too large on mobile */
+@media (max-width: 700px) {
+  a.info-card,
+  a.info-card.know-rights {
+    padding: 14px !important;
+  }
+}
