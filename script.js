@@ -1,5 +1,5 @@
-// script.js — unified, robust behaviours (slideshow, modal, panic exit, FAQ, contact, gallery, scroll reveal)
-// Replace your existing script.js with this file and hard-refresh the page.
+// script.js — restored scroll-reveal + existing behaviours (slideshow, modal, panic exit, FAQ, contact)
+// Save/replace this file as script.js and hard-refresh the page (Ctrl+Shift+R)
 
 (function () {
   'use strict';
@@ -26,70 +26,76 @@
     /* -------------------------
        SCROLL REVEAL (IntersectionObserver)
        ------------------------- */
+    
     safeRun('initScrollReveal', function initScrollReveal() {
-      // Ensure we don't leave stale visible markers from previous loads
+      // Remove any global immediate reveal previously added (defensive)
       try {
         document.querySelectorAll('section.visible').forEach(s => s.classList.remove('visible'));
-        document.querySelectorAll('.glide-bottom.in-view').forEach(el => {
-          el.classList.remove('in-view');
-          el.style.animationDelay = '';
-        });
       } catch (e) { /* ignore */ }
 
-      // Helper: run count-up for counters in #rollout (idempotent)
-      function runCountUpForSection(section) {
-        if (!section) return;
-        const counters = section.querySelectorAll('.count-up');
-        counters.forEach(counter => {
-          if (counter.dataset.counted === '1') return; // already ran
-          counter.dataset.counted = '1';
-          const target = +counter.dataset.target || 0;
-          if (!target) {
-            counter.textContent = counter.textContent || '0';
-            return;
-          }
-          let current = 0;
-          const duration = 900; // ms
-          const stepMs = 16; // ~60fps
-          const increment = target / (duration / stepMs);
-
-          const update = () => {
-            current += increment;
-            if (current < target) {
-              counter.textContent = Math.floor(current);
-              requestAnimationFrame(update);
-            } else {
-              counter.textContent = target;
-            }
-          };
-          requestAnimationFrame(update);
-        });
-      }
-
+      // If IntersectionObserver supported, reveal sections when they enter viewport
       if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries, obs) => {
           entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
+            if (entry.isIntersecting) {
+              const section = entry.target;
+              section.classList.add('visible');
 
-            const section = entry.target;
-            // keep the section visible (for legacy code that references .visible)
-            section.classList.add('visible');
+              // Stagger .glide-bottom children inside the section
+              const glideEls = Array.from(section.querySelectorAll('.glide-bottom'));
+              // Count-up animation for stat numbers when Rollout section becomes visible
+if (section.id === 'rollout') {
+  const counters = section.querySelectorAll('.count-up');
 
-            // Stagger .glide-bottom children inside the section
-            const glideEls = Array.from(section.querySelectorAll('.glide-bottom'));
-            glideEls.forEach((el, i) => {
-              // preserve stagger by using animationDelay, then trigger animation via class
-              el.style.animationDelay = `${i * 100}ms`;
-              el.classList.add('in-view');
-            });
+  counters.forEach(counter => {
+    const target = +counter.dataset.target;
+    let current = 0;
+    const duration = 900; 
+    const increment = target / (duration / 16);
 
-            // Count-up animation when Rollout section becomes visible (run once)
-            if (section.id === 'rollout') {
-              runCountUpForSection(section);
+    const update = () => {
+      current += increment;
+      if (current < target) {
+        counter.textContent = Math.floor(current);
+        requestAnimationFrame(update);
+      } else {
+        counter.textContent = target;
+      }
+    };
+
+    requestAnimationFrame(update);
+  });
+}
+
+              glideEls.forEach((el, i) => {
+                // Use small incremental delays
+                el.style.animationDelay = `${i * 100}ms`;
+              });
+// Count-up animation for stat numbers when Rollout section becomes visible
+if (section.id === 'rollout') {
+  const counters = section.querySelectorAll('.count-up');
+  counters.forEach(counter => {
+    const target = +counter.dataset.target;
+    let current = 0;
+    const duration = 900; // total animation in ms (super fast)
+    const increment = target / (duration / 16); // ~60fps
+
+    const update = () => {
+      current += increment;
+      if (current < target) {
+        counter.textContent = Math.floor(current);
+        requestAnimationFrame(update);
+      } else {
+        counter.textContent = target;
+      }
+    };
+
+    requestAnimationFrame(update);
+  });
+}
+
+              obs.unobserve(section);
             }
-
-            // we only need to animate this section once
-            obs.unobserve(section);
           });
         }, {
           root: null,
@@ -100,12 +106,9 @@
         document.querySelectorAll('section').forEach(s => observer.observe(s));
         console.log('Scroll reveal initialized with IntersectionObserver');
       } else {
-        // fallback: if IntersectionObserver not supported, ensure children are visible
-        document.querySelectorAll('.glide-bottom').forEach(el => el.classList.add('in-view'));
-        // and make sure count-up runs for rollout if present
-        const rollout = document.getElementById('rollout');
-        if (rollout) runCountUpForSection(rollout);
-        console.log('IntersectionObserver not supported — revealed all glide-bottom elements');
+        // Fallback: reveal all
+        document.querySelectorAll('section').forEach(s => s.classList.add('visible'));
+        console.log('IntersectionObserver not supported — revealed all sections');
       }
     });
 
@@ -168,7 +171,7 @@
         console.log('donateBtn or donateModal not present — skipping donation modal init.');
         return;
       }
-      // Prevent double initialization
+      // Prevent double initialization (if inline script also exists)
       if (donateBtn.dataset.modalInitialized) {
         console.log('Donation modal already initialized, skipping duplicate init.');
         return;
@@ -344,83 +347,6 @@
       });
 
       console.log('Contact form handler initialized (demo)');
-    });
-
-    /* -------------------------
-       GALLERY LIGHTBOX (basic)
-       ------------------------- */
-    safeRun('initGallery', function initGallery() {
-      const thumbs = Array.from(document.querySelectorAll('.gallery-thumb'));
-      const modal = document.getElementById('galleryModal');
-      const galleryImg = document.getElementById('galleryImage');
-      const captionEl = document.getElementById('galleryCaption');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const closeBtn = document.getElementById('closeGallery');
-      if (!thumbs.length || !modal) {
-        console.log('Gallery or thumbnails missing — skipping gallery init.');
-        return;
-      }
-
-      let currentIndex = 0;
-      const items = thumbs.map(img => {
-        return {
-          src: img.src,
-          alt: img.alt || '',
-          caption: (img.closest('.gallery-item') && img.closest('.gallery-item').querySelector('.gallery-caption')) ? img.closest('.gallery-item').querySelector('.gallery-caption').innerHTML : '',
-        };
-      });
-
-      function openGallery(index) {
-        currentIndex = index;
-        const item = items[currentIndex];
-        galleryImg.src = item.src;
-        galleryImg.alt = item.alt;
-        captionEl.innerHTML = item.caption;
-        modal.classList.add('show');
-        modal.setAttribute('aria-hidden', 'false');
-        // focus
-        const media = document.getElementById('galleryMedia');
-        if (media) media.focus();
-      }
-
-      function closeGallery() {
-        modal.classList.remove('show');
-        modal.setAttribute('aria-hidden', 'true');
-      }
-
-      function showPrev() {
-        currentIndex = (currentIndex - 1 + items.length) % items.length;
-        openGallery(currentIndex);
-      }
-      function showNext() {
-        currentIndex = (currentIndex + 1) % items.length;
-        openGallery(currentIndex);
-      }
-
-      thumbs.forEach((t, i) => {
-        t.addEventListener('click', (e) => {
-          e.preventDefault();
-          openGallery(i);
-        });
-      });
-
-      if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); showPrev(); });
-      if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); showNext(); });
-      if (closeBtn) closeBtn.addEventListener('click', (e) => { e.preventDefault(); closeGallery(); });
-
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeGallery();
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (!modal.classList.contains('show')) return;
-        if (e.key === 'Escape') closeGallery();
-        if (e.key === 'ArrowLeft') showPrev();
-        if (e.key === 'ArrowRight') showNext();
-      });
-
-      console.log('Gallery initialized');
     });
 
   }); // DOMContentLoaded end
