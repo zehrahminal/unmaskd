@@ -238,109 +238,79 @@
     </section>
 
     <!-- Legal Aid Bot -->
-    <section id="legal">
-      <h1 class="main-heading glide-bottom">Legal Aid Bot</h1>
-      <div class="hero-intro-wide glide-bottom">Ask questions and get instant legal guidance from our AI-powered bot.</div>
-      <div style="display:flex; flex-wrap:wrap; gap:32px; justify-content:center;">
-<!-- Replace the previous chatbot preview block with this improved version.
-     This keeps the same outer sizing but centers all sample messages so they
-     fully appear inside the preview box (no cropping). Paste this in place
-     of the old chatbot placeholder/preview. -->
-<div class="chatbot-preview glide-bottom"
-     aria-label="Legal Aid Chatbot preview"
-     style="flex:1;min-width:280px;max-width:400px;background:#161616;border-radius:12px;padding:10px;box-shadow:0 0 12px #00ffe033;text-align:center;box-sizing:border-box;">
+<section id="legal">
+  <h1 class="main-heading glide-bottom">Legal Aid Bot</h1>
+  <div class="hero-intro-wide glide-bottom">Ask questions and get instant legal guidance from our AI-powered bot.</div>
 
-  <div class="chatbot-header" aria-hidden="true" style="display:flex;align-items:center;gap:10px;padding:6px 6px 4px 6px;box-sizing:border-box;position:relative;z-index:2;">
-    <div class="chatbot-avatar" aria-hidden="true">🤖</div>
-    <div style="text-align:left;flex:1;">
-      <div style="font-family:var(--ivy-serif);font-weight:900;color:var(--neon-mint);font-size:1rem;line-height:1;">Legal Aid Bot</div>
-      <div style="font-size:0.78rem;color:#cfeee9;margin-top:2px;">AI legal guidance · Pakistan</div>
-    </div>
-  </div>
+  <div class="legal-grid" style="display:flex; flex-wrap:wrap; gap:32px; justify-content:center; align-items:flex-start;">
 
-  <!-- Chat window: fixed height but messages are CENTERED so nothing is cropped -->
-  <div class="chatbot-window" role="region" aria-label="Chat preview"
-       style="margin:8px 6px 10px 6px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border-radius:10px;border:1px solid rgba(255,255,255,0.02);width:100%;height:220px;box-sizing:border-box;overflow:visible;">
-
-    <!-- Center the stacked messages vertically so all are visible -->
-    <div class="chatbot-messages" aria-hidden="true"
-         style="display:flex;flex-direction:column;gap:12px;height:100%;justify-content:center;align-items:stretch;">
-
-      <div class="chatbot-message bot" style="display:flex;justify-content:flex-start;">
-        <div class="msg"
-             style="max-width:86%;background:linear-gradient(180deg, rgba(0,255,224,0.04), rgba(0,255,224,0.02));border:1px solid rgba(0,255,224,0.06);padding:10px 12px;border-radius:10px;color:var(--neon-mint);font-weight:700;font-family:var(--ivy-sans);box-shadow:0 4px 18px rgba(0,255,224,0.03);font-size:0.95rem;line-height:1.35;">
-          Hello — I’m Unmask'd Legal Aid Bot. How can I help with online abuse?
-        </div>
-      </div>
-
-      <div class="chatbot-message user" style="display:flex;justify-content:flex-end;">
-        <div class="msg"
-             style="max-width:78%;background:#101315;border:1px solid rgba(255,255,255,0.03);padding:10px 12px;border-radius:10px;color:#fff;font-weight:700;font-family:var(--ivy-sans);box-shadow:0 6px 20px rgba(0,0,0,0.45);font-size:0.95rem;line-height:1.35;">
-          My ex is sharing photos without consent. What can I do?
-        </div>
-      </div>
-
-      <div class="chatbot-message bot" style="display:flex;justify-content:flex-start;">
-        <div class="msg"
-             style="max-width:86%;background:linear-gradient(180deg, rgba(0,255,224,0.03), rgba(0,255,224,0.01));border:1px solid rgba(0,255,224,0.04);padding:10px 12px;border-radius:10px;color:var(--muted, #cfeee9);font-weight:600;font-family:var(--ivy-sans);box-shadow:0 4px 18px rgba(0,255,224,0.02);font-size:0.95rem;line-height:1.35;">
-          You can collect screenshots and file a complaint under PECA — we also have reporting templates to help.
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <a class="chatbot-cta hero-btn-neon" href="https://zehrahminall.pythonanywhere.com/" target="_blank" rel="noopener noreferrer"
-     style="display:inline-block;margin:8px auto 6px;max-width:260px;width:86%;padding:10px 16px;font-size:0.98rem;box-shadow:0 0 18px #00ffe0aa, 0 0 8px #ff4d6d66;">Go to Chatbot</a>
-</div>
-
-      <div class="chatbot-message user" style="display:flex;justify-content:flex-end;">
-        <div class="msg" style="max-width:78%;background:#101315;border:1px solid rgba(255,255,255,0.03);padding:10px 12px;border-radius:10px;color:#fff;font-weight:600;font-family:var(--ivy-sans);box-shadow:0 6px 20px rgba(0,0,0,0.5);">
-          My ex is sharing photos without consent. What can I do?
-        </div>
-      </div>
-
-      <div class="chatbot-message bot" style="display:flex;justify-content:flex-start;">
-        <div class="msg" style="max-width:84%;background:rgba(0,255,224,0.04);border:1px solid rgba(0,255,224,0.06);padding:10px 12px;border-radius:10px;color:var(--muted, #cfeee9);font-weight:600;font-family:var(--ivy-sans);box-shadow:0 4px 18px rgba(0,255,224,0.03);">
-          You can collect screenshots and file a complaint under PECA — we also have reporting templates to help.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <a class="chatbot-cta hero-btn-neon" href="https://zehrahminall.pythonanywhere.com/" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin:10px auto 6px;max-width:240px;width:86%;padding:10px 14px;font-size:0.98rem;">Go to Chatbot</a>
-</div>
-        <div style="flex:1;min-width:280px;max-width:400px;">
-<!-- Replace the existing Know Your Rights info-card in the #legal section with this anchor-card.
-     This makes the whole card link to the FIA Cybercrime Portal and opens in a new tab. -->
-<a href="https://complaint.fia.gov.pk/" target="_blank" rel="noopener noreferrer" class="info-card know-rights" aria-label="Open FIA Cybercrime Portal">
-  <h4 class="glide-bottom">⚖️ Know Your Rights</h4>
-  <p>Understand PECA and cyber laws in Pakistan using our AI chatbot - first of its kind in Pakistan.</p>
-</a>
-          <!-- Emergency Helplines (clickable tel: links) -->
-          <div class="info-card helplines-card">
-            <h4 class="glide-bottom">📞 Emergency Helplines</h4>
-            <p>Tap any number to call immediately from a mobile device:</p>
-
-            <ul class="helpline-list">
-              <li><a href="tel:+92519211344" aria-label="Call FIA Cybercrime">FIA Cybercrime: +92-51-9211344</a></li>
-              <li>
-                <a href="tel:080039393" aria-label="Call DRF Helpline (toll free)">DRF Helpline (toll-free): 0800-39393</a>
-              </li>
-              <li><a href="tel:+922199260045" aria-label="Call Cyber Police Karachi">Cyber Police (Karachi): +92-21-99260045</a></li>
-            </ul>
-
-            <a href="tel:+92519211344" class="hero-btn-neon helpline-cta" aria-label="Call FIA Cybercrime now">Emergency Helpline</a>
-          </div>
-
-          <!-- Panic Exit -->
-          <div class="info-card panic-card">
-            <button id="panicExitBtn" class="panic-btn glide-bottom" title="Instantly exit this page">🚪 Panic Exit</button>
-            <p>Instantly close this page with one click.</p>
+    <!-- LEFT: Chatbot preview (static, non-scrollable) -->
+    <div style="flex:1; min-width:280px; max-width:400px;">
+      <div class="chatbot-preview glide-bottom" aria-label="Legal Aid Chatbot preview" style="background:#161616; border-radius:12px; padding:12px; box-shadow:0 0 12px #00ffe033; box-sizing:border-box;">
+        <div class="chatbot-header" aria-hidden="true" style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+          <div class="chatbot-avatar" aria-hidden="true">🤖</div>
+          <div style="flex:1; text-align:left;">
+            <div style="font-family:var(--ivy-serif); font-weight:900; color:var(--neon-mint); font-size:1rem; line-height:1;">Legal Aid Bot</div>
+            <div style="font-size:0.78rem; color:#cfeee9; margin-top:2px;">AI legal guidance · Pakistan</div>
           </div>
         </div>
+
+        <div class="chatbot-window" role="region" aria-label="Chat preview" style="padding:12px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); border-radius:10px; border:1px solid rgba(255,255,255,0.02); width:100%; height:260px; box-sizing:border-box; overflow:hidden;">
+          <div class="chatbot-messages" aria-hidden="true" style="display:flex; flex-direction:column; gap:12px; height:100%; justify-content:flex-end; align-items:stretch;">
+
+            <div class="chatbot-message bot" style="display:flex; justify-content:flex-start;">
+              <div class="msg" style="max-width:86%; background:linear-gradient(180deg, rgba(0,255,224,0.04), rgba(0,255,224,0.02)); border:1px solid rgba(0,255,224,0.06); padding:10px 12px; border-radius:10px; color:var(--neon-mint); font-weight:700; font-family:var(--ivy-sans); box-shadow:0 4px 18px rgba(0,255,224,0.03); font-size:0.95rem; line-height:1.35;">
+                Hello — I’m Unmask'd Legal Aid Bot. How can I help with online abuse?
+              </div>
+            </div>
+
+            <div class="chatbot-message user" style="display:flex; justify-content:flex-end;">
+              <div class="msg" style="max-width:78%; background:#101315; border:1px solid rgba(255,255,255,0.03); padding:10px 12px; border-radius:10px; color:#fff; font-weight:700; font-family:var(--ivy-sans); box-shadow:0 6px 20px rgba(0,0,0,0.45); font-size:0.95rem; line-height:1.35;">
+                My ex is sharing photos without consent. What can I do?
+              </div>
+            </div>
+
+            <div class="chatbot-message bot" style="display:flex; justify-content:flex-start;">
+              <div class="msg" style="max-width:86%; background:linear-gradient(180deg, rgba(0,255,224,0.03), rgba(0,255,224,0.01)); border:1px solid rgba(0,255,224,0.04); padding:10px 12px; border-radius:10px; color:var(--muted, #cfeee9); font-weight:600; font-family:var(--ivy-sans); box-shadow:0 4px 18px rgba(0,255,224,0.02); font-size:0.95rem; line-height:1.35;">
+                You can collect screenshots and file a complaint under PECA — we also have reporting templates to help.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <a class="chatbot-cta hero-btn-neon" href="https://zehrahminall.pythonanywhere.com/" target="_blank" rel="noopener noreferrer" style="display:inline-block; margin:12px auto 0; max-width:260px; width:86%; padding:10px 16px; font-size:0.98rem; box-shadow:0 0 18px #00ffe0aa, 0 0 8px #ff4d6d66; text-align:center;">
+          Go to Chatbot
+        </a>
       </div>
-    </section>
+    </div>
+
+    <!-- RIGHT: cards column (Know Your Rights, Helplines, Panic) -->
+    <div style="flex:1; min-width:280px; max-width:420px; display:flex; flex-direction:column; gap:18px;">
+      <a href="https://complaint.fia.gov.pk/" target="_blank" rel="noopener noreferrer" class="info-card know-rights" aria-label="Open FIA Cybercrime Portal" style="display:block;">
+        <h4 class="glide-bottom">⚖️ Know Your Rights</h4>
+        <p>Understand PECA and cyber laws in Pakistan using our AI chatbot - first of its kind in Pakistan.</p>
+      </a>
+
+      <div class="info-card helplines-card">
+        <h4 class="glide-bottom">📞 Emergency Helplines</h4>
+        <p>Tap any number to call immediately from a mobile device:</p>
+        <ul class="helpline-list" style="margin:10px 0 12px 0; padding:0; list-style:none;">
+          <li style="margin-bottom:8px;"><a href="tel:+92519211344">FIA Cybercrime: +92-51-9211344</a></li>
+          <li style="margin-bottom:8px;"><a href="tel:080039393">DRF Helpline (toll-free): 0800-39393</a></li>
+          <li><a href="tel:+922199260045">Cyber Police (Karachi): +92-21-99260045</a></li>
+        </ul>
+        <a href="tel:+92519211344" class="hero-btn-neon helpline-cta" aria-label="Call FIA Cybercrime now" style="display:inline-block; margin-top:8px;">Emergency Helpline</a>
+      </div>
+
+      <div class="info-card panic-card">
+        <button id="panicExitBtn" class="panic-btn glide-bottom" title="Instantly exit this page">🚪 Panic Exit</button>
+        <p style="margin-top:8px;">Instantly close this page with one click.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
 
     <!-- Rollout -->
     <section id="rollout">
