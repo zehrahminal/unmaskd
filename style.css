@@ -34,7 +34,7 @@ body {
 }
 
 header,
-.byteback-header {
+.unmaskd-header {
   position: relative;
   background: var(--window-titlebar-bg);
   color: var(--window-titlebar-txt);
@@ -549,7 +549,7 @@ h1,
   .contact-info {
     max-width: 100%;
   }
-  .byteback-header {
+  .unmaskd-header {
     min-height: 110px;
     padding: 30px 0 10px;
   }
@@ -666,7 +666,7 @@ h1,
 
 /* Footer */
 footer,
-.byteback-footer {
+.unmaskd-footer {
   background: var(--status-bg);
   color: var(--status-txt);
   text-align: center;
@@ -676,7 +676,7 @@ footer,
   border-radius: 0 0 20px 20px;
   margin-top: 40px;
 }
-.byteback-footer {
+.unmaskd-footer {
   background: radial-gradient(circle at 75% 10%, #181c1eeb 60%, #101010 100%);
   color: #fff;
   padding: 48px 0 0 0;
