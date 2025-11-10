@@ -242,25 +242,57 @@
       <h1 class="main-heading glide-bottom">Legal Aid Bot</h1>
       <div class="hero-intro-wide glide-bottom">Ask questions and get instant legal guidance from our AI-powered bot.</div>
       <div style="display:flex; flex-wrap:wrap; gap:32px; justify-content:center;">
-<!-- Replace the original placeholder div:
-     <div style="flex:1;min-width:280px;max-width:400px;background:#161616;border-radius:12px;padding:20px;box-shadow:0 0 12px #00ffe033;text-align:center;">[Chatbot Placeholder]</div>
-     with the block below (keeps the same outer sizing so it fits exactly). -->
-<div class="chatbot-preview glide-bottom" aria-label="Legal Aid Chatbot preview" style="flex:1;min-width:280px;max-width:400px;background:#161616;border-radius:12px;padding:12px;box-shadow:0 0 12px #00ffe033;text-align:center;box-sizing:border-box;">
-  <div class="chatbot-header" aria-hidden="true" style="display:flex;align-items:center;gap:12px;width:100%;padding:6px 6px 2px 6px;box-sizing:border-box;">
+<!-- Replace the previous chatbot preview block with this improved version.
+     This keeps the same outer sizing but centers all sample messages so they
+     fully appear inside the preview box (no cropping). Paste this in place
+     of the old chatbot placeholder/preview. -->
+<div class="chatbot-preview glide-bottom"
+     aria-label="Legal Aid Chatbot preview"
+     style="flex:1;min-width:280px;max-width:400px;background:#161616;border-radius:12px;padding:10px;box-shadow:0 0 12px #00ffe033;text-align:center;box-sizing:border-box;">
+
+  <div class="chatbot-header" aria-hidden="true" style="display:flex;align-items:center;gap:10px;padding:6px 6px 4px 6px;box-sizing:border-box;position:relative;z-index:2;">
     <div class="chatbot-avatar" aria-hidden="true">🤖</div>
     <div style="text-align:left;flex:1;">
-      <div style="font-family:var(--ivy-serif);font-weight:900;color:var(--neon-mint);font-size:1rem;">Legal Aid Bot</div>
-      <div style="font-size:0.82rem;color:#cfeee9;margin-top:2px;">AI legal guidance · Pakistan</div>
+      <div style="font-family:var(--ivy-serif);font-weight:900;color:var(--neon-mint);font-size:1rem;line-height:1;">Legal Aid Bot</div>
+      <div style="font-size:0.78rem;color:#cfeee9;margin-top:2px;">AI legal guidance · Pakistan</div>
     </div>
   </div>
 
-  <div class="chatbot-window" role="region" aria-label="Chat preview" style="margin:10px 6px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border-radius:10px;border:1px solid rgba(255,255,255,0.02);width:100%;height:200px;box-sizing:border-box;overflow:hidden;">
-    <div class="chatbot-messages" aria-hidden="true" style="display:flex;flex-direction:column;gap:10px;height:100%;justify-content:flex-end;">
+  <!-- Chat window: fixed height but messages are CENTERED so nothing is cropped -->
+  <div class="chatbot-window" role="region" aria-label="Chat preview"
+       style="margin:8px 6px 10px 6px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border-radius:10px;border:1px solid rgba(255,255,255,0.02);width:100%;height:220px;box-sizing:border-box;overflow:visible;">
+
+    <!-- Center the stacked messages vertically so all are visible -->
+    <div class="chatbot-messages" aria-hidden="true"
+         style="display:flex;flex-direction:column;gap:12px;height:100%;justify-content:center;align-items:stretch;">
+
       <div class="chatbot-message bot" style="display:flex;justify-content:flex-start;">
-        <div class="msg" style="max-width:84%;background:rgba(0,255,224,0.06);border:1px solid rgba(0,255,224,0.06);padding:10px 12px;border-radius:10px;color:var(--neon-mint);font-weight:700;font-family:var(--ivy-sans);box-shadow:0 4px 18px rgba(0,255,224,0.04);">
+        <div class="msg"
+             style="max-width:86%;background:linear-gradient(180deg, rgba(0,255,224,0.04), rgba(0,255,224,0.02));border:1px solid rgba(0,255,224,0.06);padding:10px 12px;border-radius:10px;color:var(--neon-mint);font-weight:700;font-family:var(--ivy-sans);box-shadow:0 4px 18px rgba(0,255,224,0.03);font-size:0.95rem;line-height:1.35;">
           Hello — I’m Unmask'd Legal Aid Bot. How can I help with online abuse?
         </div>
       </div>
+
+      <div class="chatbot-message user" style="display:flex;justify-content:flex-end;">
+        <div class="msg"
+             style="max-width:78%;background:#101315;border:1px solid rgba(255,255,255,0.03);padding:10px 12px;border-radius:10px;color:#fff;font-weight:700;font-family:var(--ivy-sans);box-shadow:0 6px 20px rgba(0,0,0,0.45);font-size:0.95rem;line-height:1.35;">
+          My ex is sharing photos without consent. What can I do?
+        </div>
+      </div>
+
+      <div class="chatbot-message bot" style="display:flex;justify-content:flex-start;">
+        <div class="msg"
+             style="max-width:86%;background:linear-gradient(180deg, rgba(0,255,224,0.03), rgba(0,255,224,0.01));border:1px solid rgba(0,255,224,0.04);padding:10px 12px;border-radius:10px;color:var(--muted, #cfeee9);font-weight:600;font-family:var(--ivy-sans);box-shadow:0 4px 18px rgba(0,255,224,0.02);font-size:0.95rem;line-height:1.35;">
+          You can collect screenshots and file a complaint under PECA — we also have reporting templates to help.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <a class="chatbot-cta hero-btn-neon" href="https://zehrahminall.pythonanywhere.com/" target="_blank" rel="noopener noreferrer"
+     style="display:inline-block;margin:8px auto 6px;max-width:260px;width:86%;padding:10px 16px;font-size:0.98rem;box-shadow:0 0 18px #00ffe0aa, 0 0 8px #ff4d6d66;">Go to Chatbot</a>
+</div>
 
       <div class="chatbot-message user" style="display:flex;justify-content:flex-end;">
         <div class="msg" style="max-width:78%;background:#101315;border:1px solid rgba(255,255,255,0.03);padding:10px 12px;border-radius:10px;color:#fff;font-weight:600;font-family:var(--ivy-sans);box-shadow:0 6px 20px rgba(0,0,0,0.5);">
@@ -538,7 +570,7 @@
         </div>
         <div class="faq-item">
           <button class="faq-question">How do I get legal help?</button>
-          <div class="faq-answer">Use our Legal Aid Bot or connect with a verified expert through the Digital Defense Hub.</div>
+          <div class="faq-answer">Use our  or connect with a verified expert through the Digital Defense Hub.</div>
         </div>
         <div class="faq-item">
           <button class="faq-question">Is Unmask'd free?</button>
