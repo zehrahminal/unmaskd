@@ -673,6 +673,8 @@ footer,
   padding: 22px 0 10px 0;
   border-top: 1.5px solid var(--window-border);
   font-size: 1.04rem;
+  font-weight: 700;
+  padding: 22px 0 10px 0;
   border-radius: 0 0 20px 20px;
   margin-top: 40px;
 }
@@ -999,6 +1001,7 @@ footer,
   padding: 5vh 8vw;
   max-width: 680px;
   text-align: left;
+  gap: 20px;
 }
 
 .slide-title {
@@ -1099,7 +1102,6 @@ footer,
   margin: 0;
   padding: 0;
   overflow: hidden;
-  /* Remove max-width, margin, etc that restrict width */
 }
 
 /* Slides must fill parent */
@@ -1133,11 +1135,10 @@ footer,
   height: 100vh;
   background-size: cover;
   background-position: center;
-  filter: brightness(0.58);
+  filter: brightness(0.58) blur(0px); /* adjust brightness for readability */
   z-index: 0;
 }
 
-/* Left-align and space text, make it readable */
 .slide-content {
   position: relative;
   z-index: 2;
@@ -1268,7 +1269,7 @@ footer,
   transition: opacity 1.2s cubic-bezier(.43,.04,.55,.95);
   pointer-events: none;
   display: flex;
-  align-items: flex-start;   /* Left align text vertically */
+  align-items: flex-start;   /* left align text vertically */
   justify-content: flex-start;   /* Left align text horizontally */
   box-sizing: border-box;
   margin: 0;
@@ -1396,6 +1397,7 @@ footer,
     font-size: 1rem;
   }
 }
+
 /* Fix unwanted space for hero slideshow only */
 .hero-slideshow-section {
   margin: 0 !important;
@@ -1465,7 +1467,6 @@ footer,
   max-width: 600px;
   text-align: left;
   gap: 22px;
-  margin: 0 !important;
 }
 
 /* Responsive for mobile */
@@ -1481,6 +1482,7 @@ footer,
     max-width: 95vw;
   }
 }
+
 /* Modal styles — add to your existing style.css (adjust colors if needed) */
 .modal {
   position: fixed;
@@ -1515,6 +1517,12 @@ footer,
   color: #e6f7f4;
   z-index: 10001;
   transform: translateY(6px);
+  /* ensure modal panel is centered and contents stack vertically */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 /* Close button */
@@ -1540,6 +1548,7 @@ footer,
   flex-direction: column;
   gap: 16px;
   align-items: center;
+  width: 100%;
 }
 
 .donation-qr {
@@ -1550,6 +1559,8 @@ footer,
   border: 6px solid rgba(0,255,224,0.06);
   background: #0b0b0b;
   box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  display: block;
+  margin: 0 auto 8px auto; /* center the QR image inside modal */
 }
 
 #donateTitle {
@@ -1697,15 +1708,144 @@ footer,
   transform: none !important;
 }
 
-/* If a parent is a flex container that aligns children to the left,
-   margin:auto on the heading will center it horizontally within the flex item.
-   If a parent sets justify-content: flex-start and you *want* the entire section
-   content centered, uncomment the next rule to center the section's contents. */
-/*
-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* ------------------------
+   Targeted fixes requested:
+   1) Center the "Collaborate or Donate" card/button in the Join triangle grid
+   2) Make the Panic Exit button follow page styling (neon/pill style)
+   3) Improve Emergency Helpline block styling & ensure the call button centers
+   4) Make donate modal QR box centered
+   These rules are specific and use ID/class selectors for higher specificity.
+   ------------------------ */
+
+/* 1) Center the Donate/Collaborate card in triangle grid robustly using the ID */
+.tool-card-grid.triangle > a#donateBtn,
+#join .tool-card-grid > a#donateBtn {
+  grid-column: 1 / -1;       /* span the full row */
+  justify-self: center;      /* center the grid item */
+  width: 62%;                /* visual width similar to other centered cards */
+  max-width: 720px;
+  min-width: 320px;
+  box-sizing: border-box;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Ensure anchor inside keeps card look */
+.tool-card-grid.triangle > a#donateBtn .icon,
+.tool-card-grid.triangle > a#donateBtn h3,
+.tool-card-grid.triangle > a#donateBtn p {
+  text-align: left;
+}
+
+/* If you want the text inside the donate card centered instead, uncomment:
+.tool-card-grid.triangle > a#donateBtn .icon,
+.tool-card-grid.triangle > a#donateBtn h3,
+.tool-card-grid.triangle > a#donateBtn p {
+  text-align: center;
 }
 */
 
+/* 2) Panic button styling — match neon/pill look like hero buttons but smaller */
+.panic-btn {
+  display: inline-block;
+  background: var(--gradient);
+  color: #101010;
+  font-weight: 900;
+  border-radius: 999px;
+  padding: 10px 18px;
+  box-shadow: 0 0 20px #00ffe0bb, 0 0 12px #ff4d6d66;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+  text-align: center;
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.panic-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 34px #00ffe0bb, 0 0 28px #ff4d6d66;
+}
+
+/* Keep panic button accessible size on small screens */
+@media (max-width: 700px) {
+  .panic-btn { padding: 9px 14px; font-size: 0.95rem; }
+}
+
+/* 3) Emergency helpline styling improvements */
+.info-card.helplines-card {
+  text-align: center; /* center the whole helpline card for alignment */
+  padding-bottom: 20px;
+}
+
+/* Keep the list readable (left aligned) but contained */
+.info-card.helplines-card .helpline-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px auto 14px auto;
+  text-align: left;
+  max-width: 360px;
+}
+
+/* Small helper for the small note */
+.info-card.helplines-card .helpline-small {
+  display: block;
+  margin-top: 6px;
+  color: #cfdcd8;
+  font-size: 0.86rem;
+}
+
+/* Make the call-to-action look like the neon hero button but center it */
+.info-card.helplines-card .helpline-cta,
+.info-card.helplines-card .hero-btn-neon.helpline-cta {
+  display: inline-block;
+  margin: 12px auto 0 auto;
+  min-width: 220px;
+  text-align: center;
+  padding: 12px 22px;
+  font-size: 1rem;
+  box-shadow: 0 0 20px #00ffe033, 0 0 10px #ff4d6d44;
+}
+
+/* 4) Donate modal QR center (reinforce centering) */
+#donateModal .modal-content {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Ensure QR is centered and the entire modal body stacks centrally */
+#donateModal .modal-body {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Make the close button visible and consistent color */
+#donateModal .modal-close {
+  color: #cdeee9;
+}
+
+/* Extra safety: remove left alignment from any tool-card-link that might be overriding */
+.tool-card-link,
+.tool-card {
+  text-align: left; /* default inside-card text left for readability */
+}
+
+/* But override the centered donate card to keep its content left as before (already set above) */
+
+/* If any earlier rules force float/align, neutralize for the join grid items */
+.tool-card-grid.triangle > * {
+  float: none !important;
+}
+
+/* small responsive tweak for centered donate card */
+@media (max-width: 900px) {
+  .tool-card-grid.triangle > a#donateBtn { width: 80%; min-width: 280px; }
+}
+@media (max-width: 700px) {
+  .tool-card-grid.triangle > a#donateBtn { width: 100%; min-width: 0; max-width: 98vw; }
+}
+
+/* End of targeted fixes */
