@@ -242,11 +242,9 @@
   <h1 class="main-heading glide-bottom">Legal Aid Bot</h1>
   <div class="hero-intro-wide glide-bottom">Ask questions and get instant legal guidance from our AI-powered bot.</div>
 
-  <!-- BIG PANEL that contains the chatbot preview (left) and the three stacked cards (right) -->
-  <div class="legal-panel glide-bottom" role="region" aria-labelledby="legal-panel-title">
-
+  <div class="legal-panel glide-bottom" role="region" aria-labelledby="legal-panel">
     <div class="legal-panel-inner">
-      <!-- LEFT: Chatbot preview (unchanged content but sized to fit inside the big panel) -->
+      <!-- LEFT: Chat preview -->
       <div class="panel-left">
         <div class="chatbot-preview" aria-label="Legal Aid Chatbot preview">
           <div class="chatbot-header" aria-hidden="true">
@@ -259,17 +257,9 @@
 
           <div class="chatbot-window" role="region" aria-label="Chat preview">
             <div class="chatbot-messages" aria-hidden="true">
-              <div class="chatbot-message bot">
-                <div class="msg">Hello — I’m Unmask'd Legal Aid Bot. How can I help with online abuse?</div>
-              </div>
-
-              <div class="chatbot-message user">
-                <div class="msg">My ex is sharing photos without consent. What can I do?</div>
-              </div>
-
-              <div class="chatbot-message bot">
-                <div class="msg">You can collect screenshots and file a complaint under PECA — we also have reporting templates to help.</div>
-              </div>
+              <div class="chatbot-message bot"><div class="msg">Hello — I’m Unmask'd Legal Aid Bot. How can I help with online abuse?</div></div>
+              <div class="chatbot-message user"><div class="msg">My ex is sharing photos without consent. What can I do?</div></div>
+              <div class="chatbot-message bot"><div class="msg">You can collect screenshots and file a complaint under PECA — we also have reporting templates to help.</div></div>
             </div>
           </div>
 
@@ -277,11 +267,11 @@
         </div>
       </div>
 
-      <!-- RIGHT: three stacked cards inside the same big panel -->
+      <!-- RIGHT: stacked cards -->
       <div class="panel-right" role="group" aria-label="Quick actions and helplines">
         <a class="panel-card panel-know-rights" href="https://complaint.fia.gov.pk/" target="_blank" rel="noopener noreferrer">
           <h4>⚖️ Know Your Rights</h4>
-          <p>Click this link to be directed to the FIA Cybercrime Portal. Use our AI Chatbot, first of its kind, for any questions regarding cybercrime.</p>
+          <p>Click this link to be directed to the FIA Cybercrime Portal. Use our AI Chatbot for any questions regarding cybercrime.</p>
         </a>
 
         <div class="panel-card panel-helplines">
@@ -296,14 +286,13 @@
         </div>
 
         <div class="panel-card panel-panic">
-          <button id="panicExitBtn" class="panic-btn" title="Instantly exit this page">🚪 Panic Exit</button>
+          <button id="panicExitBtn" class="panic-btn">🚪 Panic Exit</button>
           <p class="panic-note">Instantly close this page with one click.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
-
     <!-- Rollout -->
     <section id="rollout">
       <h1 class="main-heading glide-bottom">National Rollout</h1>
