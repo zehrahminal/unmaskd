@@ -1952,20 +1952,12 @@ header::before {
   */
   /* content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 12px; */
 }
-/* restore heading visibility and glow */
-h1, h2, h3, .main-heading, .slide-title {
-  opacity: 1 !important; /* make sure it’s visible */
-  color: #ffe066; /* fallback color */
-  font-weight: 700;
-  text-align: center; /* tweak if needed */
-  font-family: 'Poppins', sans-serif; /* or whatever you used */
-  
-  /* neon gradient glow */
-  background: linear-gradient(90deg, #ffe066, #ff4d6d, #00ffe0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  
-  /* optional soft glow */
-  text-shadow: 0 0 5px #ffe066, 0 0 10px #ff4d6d, 0 0 20px #00ffe0;
+h1, h2, h3, h4, h5, h6 {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: inherit !important; /* makes sure text color isn’t hidden */
+    font-size: inherit !important; /* keeps your font from being squashed */
+    line-height: normal !important;
+    text-transform: none !important;
 }
-
