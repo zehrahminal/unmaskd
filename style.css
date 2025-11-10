@@ -2349,3 +2349,68 @@ a.info-card,
     padding: 14px !important;
   }
 }
+/* Append the following at the end of style.css (chatbot preview styling).
+   This keeps the preview purely visual (no JS), matches site colors, and
+   ensures the preview fits exactly in the original placeholder box. */
+
+.chatbot-preview { /* minor defensive defaults (inline styles already set) */
+  color: #e6f7f4;
+  font-family: var(--ivy-sans);
+}
+
+/* avatar style */
+.chatbot-preview .chatbot-avatar {
+  width:44px;
+  height:44px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: linear-gradient(180deg, rgba(0,255,224,0.07), rgba(255,77,109,0.04));
+  font-size:20px;
+  box-shadow: 0 6px 20px rgba(0,255,224,0.06);
+  flex:0 0 auto;
+}
+
+/* ensure non-scrollable preview always stays neat */
+.chatbot-preview .chatbot-window { overflow: hidden; }
+
+/* message bubbles */
+.chatbot-preview .chatbot-message .msg {
+  line-height:1.35;
+  word-break:break-word;
+}
+
+/* bot bubble tweak (for color contrast) */
+.chatbot-preview .chatbot-message.bot .msg {
+  background: linear-gradient(180deg, rgba(0,255,224,0.04), rgba(0,255,224,0.02));
+  color: var(--neon-mint);
+}
+
+/* user bubble tweak */
+.chatbot-preview .chatbot-message.user .msg {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color: #fff;
+}
+
+/* reduce emphasis on text but keep readability */
+.chatbot-preview .chatbot-message .msg { font-size: 0.95rem; }
+
+/* button inherits hero button look but slightly smaller */
+.chatbot-preview .chatbot-cta.hero-btn-neon {
+  box-shadow: 0 0 18px #00ffe0aa, 0 0 8px #ff4d6d66;
+  padding: 10px 16px;
+  font-weight: 800;
+  text-decoration: none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* small-screen tweaks so preview still fits nicely */
+@media (max-width:700px) {
+  .chatbot-preview { min-width: 220px; max-width: 420px; }
+  .chatbot-preview .chatbot-window { height:180px; }
+  .chatbot-preview .chatbot-avatar { width:40px; height:40px; font-size:18px; }
+  .chatbot-preview .chatbot-cta { max-width: 280px; width: 90%; }
+}
