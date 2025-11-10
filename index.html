@@ -586,6 +586,29 @@
                 sec.classList.add('visible');
                 const glide = Array.from(sec.querySelectorAll('.glide-bottom'));
                 glide.forEach((el, i) => el.style.animationDelay = (i * 120) + 'ms');
+                // ✅ Count-up animation for Rollout stats
+if (sec.id === 'rollout') {
+  const counters = sec.querySelectorAll('.count-up');
+  counters.forEach(counter => {
+    const target = +counter.dataset.target;
+    let current = 0;
+    const duration = 900; // ms
+    const increment = target / (duration / 16);
+
+    const update = () => {
+      current += increment;
+      if (current < target) {
+        counter.textContent = Math.floor(current);
+        requestAnimationFrame(update);
+      } else {
+        counter.textContent = target;
+      }
+    };
+
+    requestAnimationFrame(update);
+  });
+}
+
                 o.unobserve(sec);
               }
             });
