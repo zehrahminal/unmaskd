@@ -2013,3 +2013,103 @@ header.byteback-header {
     text-align: center !important;
   }
 }
+/* --- Append to the end of style.css --- */
+/* Partner logos rolling marquee (matches site theme) */
+.partner-marquee-wrap {
+  width: 100%;
+  max-width: 980px;
+  margin: 20px auto 8px auto;
+  box-sizing: border-box;
+  padding: 12px 8px;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.partner-marquee {
+  width: 100%;
+  overflow: hidden;
+  background: transparent;
+  border-radius: 12px;
+  padding: 6px 0;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  will-change: transform;
+  /* animation length can be tuned; longer = slower */
+  animation: marquee-scroll 20s linear infinite;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+/* Each logo item */
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  background: var(--card-bg, #181c1e);
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.55);
+}
+
+/* Logo image sizing and neon-ish glow to match theme */
+.marquee-item img {
+  display: block;
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  filter: drop-shadow(0 6px 24px var(--neon-mint-alpha, #00ffe0aa));
+  background: transparent;
+}
+
+/* caption */
+.marquee-caption {
+  font-size: 0.92rem;
+  color: var(--neon-mint);
+  opacity: 0.9;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-transform: none;
+}
+
+/* Pause on hover/focus for accessibility */
+.partner-marquee:hover .marquee-track,
+.partner-marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+  cursor: grab;
+}
+
+/* Reduced motion preference: stop animation, show static, allow horizontal scroll */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    overflow-x: auto;
+  }
+  .marquee-track::-webkit-scrollbar { height: 8px; }
+}
+
+/* Animation: translate left by 50% (we duplicated content so -50% gives seamless loop) */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+  .marquee-item img { height: 48px; }
+  .marquee-track { gap: 20px; }
+}
+@media (max-width: 520px) {
+  .marquee-item img { height: 40px; }
+  .partner-marquee-wrap { padding: 8px 6px; }
+  .marquee-caption { font-size: 0.82rem; }
+}
