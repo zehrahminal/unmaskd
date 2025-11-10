@@ -1809,3 +1809,146 @@ footer,
     justify-self: stretch;
   }
 }
+/* ---- Header: move logo to extreme left and align title/tagline ----
+   Replace the existing header / .header-logo / .header-title-block
+   / .header-title / .header-tagline blocks in your CSS with the
+   rules below. On narrow screens the header falls back to the
+   previous stacked layout via the media query. */
+header,
+.unmaskd-header {
+  position: relative;
+  background: var(--window-titlebar-bg);
+  color: var(--window-titlebar-txt);
+  font-family: var(--ivy-serif);
+  font-weight: 700;
+  box-shadow: 0 2px 16px #00ffe033;
+  border-radius: 0 0 20px 20px;
+  /* make header horizontal, left-aligned */
+  padding: 22px 24px;
+  min-height: 80px;
+  max-width: 2000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;        /* was column */
+  align-items: center;        /* vertically center logo + text */
+  justify-content: flex-start;/* logo sits at extreme left */
+  gap: 20px;                  /* space between logo and title block */
+}
+
+/* Logo pinned to the left, aligned with heading/subheading */
+.header-logo {
+  position: relative;   /* keep it in normal flow */
+  height: 90px;
+  width: auto;
+  margin: 0;            /* flush with the left side of header content area */
+  display: block;
+  filter: drop-shadow(0 0 24px #00ffe066);
+  z-index: 2;
+  /* ensure the image doesn't shrink below a usable size */
+  flex: 0 0 auto;
+}
+
+/* Title block sits to the right of the logo and is left-aligned */
+.header-title-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* left-align text */
+  justify-content: center;
+  width: auto;             /* allow the title to size naturally */
+  text-align: left;
+  padding-right: 12px;
+}
+
+/* Title - left aligned and responsive */
+.header-title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  font-size: 3.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-align: left;
+  flex-wrap: wrap;
+  word-break: break-word;
+  line-height: 1.1;
+}
+
+/* Gradient title rules (keeps same visual treatment but left aligned) */
+.title-gradient,
+header .title-gradient,
+.hero-title-glow,
+h1,
+.main-heading {
+  background: linear-gradient(90deg, #ffe066, #ff4d6d, #00ffe0, #ffe066);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleGradientMove 6s ease-in-out infinite;
+  font-weight: 900;
+  text-align: left; /* changed from center */
+  word-break: break-word;
+  line-height: 1.18;
+}
+
+/* Tagline left aligned and smaller spacing when in row */
+.header-tagline {
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin-top: 6px;
+  color: #ffe066;
+  letter-spacing: 1px;
+  text-align: left;
+  width: 100%;
+  word-break: break-word;
+}
+
+/* ---- Responsive fallback: keep the old stacked (centered) layout on small screens ---- */
+@media (max-width: 900px) {
+  header,
+  .unmaskd-header {
+    flex-direction: column;    /* stacked layout for mobile */
+    align-items: center;
+    padding: 30px 16px;
+    text-align: center;
+  }
+
+  .header-logo {
+    height: 62px;
+    margin: 0 auto 12px auto;  /* center the logo when stacked */
+  }
+
+  .header-title-block {
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .header-title {
+    font-size: 1.6rem;
+    justify-content: center;
+  }
+
+  .title-gradient,
+  header .title-gradient,
+  .hero-title-glow,
+  h1,
+  .main-heading {
+    text-align: center;
+  }
+
+  .header-tagline {
+    font-size: 0.95rem;
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+
+header::before {
+  /* Optional: if you want the logo to visually hug the viewport left edge,
+     uncomment and tweak the transform. Keep commented unless you need the
+     logo absolutely flush to the viewport left rather than the header container.
+  */
+  /* content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 12px; */
+}
